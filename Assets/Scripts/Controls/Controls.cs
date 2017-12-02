@@ -46,6 +46,11 @@ public class PlayerControls
     {
         return Input.GetKeyDown(_throw[index]);
     }
+
+    public int ThrowCount
+    {
+        get { return _throw.Length; }
+    }
     
     public bool Melee
     {

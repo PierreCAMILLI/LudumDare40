@@ -91,7 +91,7 @@ public class Inventory : SingletonBehaviour<Inventory>
         return item;
     }
 
-    GameObject instanciateItem(Item.Type type)
+    public GameObject instanciateItem(Item.Type type)
     {
         switch (type)
         {
