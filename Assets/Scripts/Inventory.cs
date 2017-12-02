@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class Inventory : SingletonBehaviour<Inventory>
 {
-    public Vector3[] itemExposedPosition = new Vector3[3];
-    public Vector3[] itemSlotsPosition = new Vector3[3];
-
     public GameObject meatPrefab;
     public GameObject applePrefab;
     public GameObject fishPrefab;
