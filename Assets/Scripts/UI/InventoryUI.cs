@@ -19,9 +19,12 @@ public class InventoryUI : SingletonBehaviour<InventoryUI> {
             return;
 		for(int i = 0; i < _slots.Length; ++i)
         {
-            if(i > Inventory.Instance.getSlots().Length)
+            if(     i < Inventory.Instance.getSlots().Length
+                && Inventory.Instance.getSlots()[i] != Item.Element.NONE)
             {
                 // TODO: Attach sprite
+                Item.Element element = Inventory.Instance.getSlots()[i];
+                _slots[i].sprite = Inventory.Instance.getSprite(element);
                 _slots[i].color = Color.white;
             }
             else
@@ -32,9 +35,12 @@ public class InventoryUI : SingletonBehaviour<InventoryUI> {
         }
         for (int i = 0; i < _inventory.Length; ++i)
         {
-            if (i > Inventory.Instance.getInventory().Length)
+            if (    i < Inventory.Instance.getInventory().Length
+                &&  Inventory.Instance.getInventory()[i] != Item.Element.NONE)
             {
                 // TODO: Attach sprite
+                Item.Element element = Inventory.Instance.getInventory()[i];
+                _inventory[i].sprite = Inventory.Instance.getSprite(element);
                 _inventory[i].color = Color.white;
             }
             else

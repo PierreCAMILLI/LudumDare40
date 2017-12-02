@@ -80,6 +80,7 @@ public class Player : SingletonBehaviour<Player> {
             if (item != null)
             {
                 item.thrown = true;
+                item.cooldownSensitive = true;
             }
 
             Rigidbody2D rigidbody = go.GetComponent<Rigidbody2D>();
@@ -98,6 +99,19 @@ public class Player : SingletonBehaviour<Player> {
         if(enemy != null)
         {
             enemy.Hurt();
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        Item item = collision.gameObject.GetComponent<Item>();
+        if (item != null)
+        {
+            if (!item.thrown)
+            {
+                Inventory.Instance.PushFront(item);
+                Destroy(item.gameObject);
+            }
         }
     }
 }

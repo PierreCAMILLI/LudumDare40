@@ -37,17 +37,17 @@ public class Inventory : SingletonBehaviour<Inventory>
 
         // debug
         inventory.Insert(0, Item.Element.MEAT);
-        inventory.Insert(0, Item.Element.MEAT);
-        inventory.Insert(0, Item.Element.MEAT);
-        inventory.Insert(0, Item.Element.MEAT);
-        inventory.Insert(0, Item.Element.MEAT);
-        inventory.Insert(0, Item.Element.MEAT);
-        inventory.Insert(0, Item.Element.MEAT);
-        inventory.Insert(0, Item.Element.MEAT);
+        inventory.Insert(0, Item.Element.APPLE);
+        inventory.Insert(0, Item.Element.BONE);
+        inventory.Insert(0, Item.Element.BOOT);
+        inventory.Insert(0, Item.Element.CAN);
+        inventory.Insert(0, Item.Element.COIN);
+        inventory.Insert(0, Item.Element.DIAMOND);
+        inventory.Insert(0, Item.Element.FISH);
 
-        slots[0] = Item.Element.MEAT;
+        slots[0] = Item.Element.LINT;
         slots[1] = Item.Element.MEAT;
-        slots[2] = Item.Element.MEAT;
+        slots[2] = Item.Element.ROCK;
 
         // c'est pas du debug, cest important, (resource manager behaviour)
         sprites[0] = meatPrefab.GetComponent<SpriteRenderer>().sprite;
