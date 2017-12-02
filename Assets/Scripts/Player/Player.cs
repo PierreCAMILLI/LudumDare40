@@ -71,7 +71,7 @@ public class Player : SingletonBehaviour<Player> {
 
     public bool Throw(byte objectIndex = 0)
     {
-        GameObject go = Inventory.Instance.instanciateItem(Inventory.Instance.getItem(objectIndex));
+        GameObject go = Inventory.Instance.instanciateItem(Inventory.Instance.popItem(objectIndex));
         if(go != null)
         {
             go.transform.position = transform.position + (Vector3)Forward;

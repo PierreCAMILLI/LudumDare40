@@ -24,13 +24,13 @@ public class Inventory : SingletonBehaviour<Inventory>
     public GameObject rockPrefab;
 
 
-    private GameObject[] slots = new GameObject[3];
+    private Item.Element[] slots = new Item.Element[3];
     private List<Item.Element> inventory;
     private List<GameObject> itemExposed;
 
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         itemExposed = new List<GameObject>();
         inventory = new List<Item.Element>();
@@ -39,23 +39,19 @@ public class Inventory : SingletonBehaviour<Inventory>
         inventory.Insert(0, Item.Element.MEAT);
         inventory.Insert(0, Item.Element.MEAT);
         inventory.Insert(0, Item.Element.MEAT);
-		inventory.Insert(0, Item.Element.MEAT);
         inventory.Insert(0, Item.Element.MEAT);
-		inventory.Insert(0, Item.Element.MEAT);
-		inventory.Insert(0, Item.Element.MEAT);
+        inventory.Insert(0, Item.Element.MEAT);
+        inventory.Insert(0, Item.Element.MEAT);
+        inventory.Insert(0, Item.Element.MEAT);
         inventory.Insert(0, Item.Element.MEAT);
 
-		slots[0] = instanciateItem(Item.Element.MEAT);
-        slots[1] = instanciateItem(Item.Element.MEAT);
-        slots[2] = instanciateItem(Item.Element.MEAT);
-
-        slots[0].transform.position = itemSlotsPosition[0];
-        slots[1].transform.position = itemSlotsPosition[1];
-        slots[2].transform.position = itemSlotsPosition[2];
+        slots[0] = Item.Element.MEAT;
+        slots[1] = Item.Element.MEAT;
+        slots[2] = Item.Element.MEAT;
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
         /*for (int i = 0; i < itemExposedPosition.Length && i < itemExposed.Count; i++)
             GameObject.Destroy(itemExposed[i]);
@@ -76,23 +72,36 @@ public class Inventory : SingletonBehaviour<Inventory>
         inventory.Insert(0, item.element);
     }
 
-    public Item.Element getItem(int index)
+    public Item.Element popItem(int index)
     {
         Item.Element item = Item.Element.NONE;
-        if (index >= 0 && index < 3 && slots[index])
+        if (index >= 0 && index < 3 && slots[index] != Item.Element.NONE)
         {
-            item = slots[index].GetComponent<Item>().element;
-            GameObject.Destroy(slots[index]);
+            item = slots[index];
 
             if (inventory.Count > 0)
             {
-                slots[index] = instanciateItem(inventory[0]);
-                slots[index].transform.position = itemSlotsPosition[index];
+                slots[index] = inventory[0];
                 inventory.RemoveAt(0);
             }
-            else slots[index] = null;
+            else slots[index] = Item.Element.NONE;
         }
         return item;
+    }
+
+    public Item.Element[] getSlots()
+    {
+        return slots;
+    }
+
+    public Item.Element[] getInventory()
+    {
+        Item.Element[] result = new Item.Element[3];
+        for (int i = 0; i < 3; i++)
+        {
+            result[i] = inventory[i];
+        }
+        return result;
     }
 
     public GameObject instanciateItem(Item.Element type)
