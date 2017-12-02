@@ -76,6 +76,12 @@ public class Player : SingletonBehaviour<Player> {
         {
             go.transform.position = transform.position + (Vector3)Forward;
 
+            Item item = go.GetComponent<Item>();
+            if (item != null)
+            {
+                item.thrown = true;
+            }
+
             Rigidbody2D rigidbody = go.GetComponent<Rigidbody2D>();
             if (rigidbody != null)
             {
