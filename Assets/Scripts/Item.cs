@@ -39,7 +39,7 @@ public class Item : MonoBehaviour
     public Element element;
     public bool thrown = false;
     public bool cooldownSensitive = false;
-    public float cooldownTime;
+    public float cooldownTime = 2.0F;
 
     private Rigidbody2D rb = null;
 
@@ -55,7 +55,11 @@ public class Item : MonoBehaviour
 		if(thrown)
         {
             if (!rb) rb = GetComponent<Rigidbody2D>();
-            if (rb.velocity.magnitude <= 0.001F) thrown = false;
+            if (rb.velocity.magnitude <= 0.01F)
+            {
+                rb.drag = 1.0F;
+                thrown = false;
+            }
         }
 
         if(cooldownSensitive)
