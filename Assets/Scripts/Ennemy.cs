@@ -62,7 +62,7 @@ public class Ennemy : MonoBehaviour {
 				targetMovement = null;
 			
 			foreach (var target in visibleTargets) {
-				Item = target.GetComponent<Item> ();
+				Item item = target.GetComponent<Item> ();
 				if (item != null) {
 					
 				}

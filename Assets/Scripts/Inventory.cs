@@ -24,16 +24,16 @@ public class Inventory : SingletonBehaviour<Inventory>
         inventory = new List<Item.Type>();
         
         // debug
-        inventory.Insert(0, Item.Type.APPLE);
+        inventory.Insert(0, Item.Type.FOOD);
         inventory.Insert(0, Item.Type.GOLD);
         inventory.Insert(0, Item.Type.GOLD);
-        inventory.Insert(0, Item.Type.APPLE);
+		inventory.Insert(0, Item.Type.FOOD);
         inventory.Insert(0, Item.Type.WEAPON);
-        inventory.Insert(0, Item.Type.APPLE);
-        inventory.Insert(0, Item.Type.APPLE);
+		inventory.Insert(0, Item.Type.FOOD);
+		inventory.Insert(0, Item.Type.FOOD);
         inventory.Insert(0, Item.Type.WEAPON);
 
-        slots[0] = instanciateItem(Item.Type.APPLE);
+		slots[0] = instanciateItem(Item.Type.FOOD);
         slots[1] = instanciateItem(Item.Type.WEAPON);
         slots[2] = instanciateItem(Item.Type.WEAPON);
 
@@ -87,7 +87,7 @@ public class Inventory : SingletonBehaviour<Inventory>
     {
         switch (type)
         {
-            case Item.Type.APPLE:  return Instantiate(applePrefab);
+			case Item.Type.FOOD:  return Instantiate(applePrefab);
             case Item.Type.WEAPON: return Instantiate(weaponPrefab);
             case Item.Type.GOLD:   return Instantiate(goldPrefab);
             case Item.Type.CRAP:   return Instantiate(crapPrefab);
