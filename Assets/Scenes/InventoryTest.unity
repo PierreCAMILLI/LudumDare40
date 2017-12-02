@@ -189,14 +189,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _followingObject: {fileID: 1728153370}
-  _zoneWidth:
-    m_min: -0.8
-    m_max: 0.8
-    restrict: 0
-  _zoneHeight:
-    m_min: 0
-    m_max: 0
-    restrict: 0
+  _velocity: {x: 0, y: 0}
+  _smoothTime: 0
+  _zoomCoefficient: 5
 --- !u!81 &415390936
 AudioListener:
   m_ObjectHideFlags: 0
@@ -455,12 +450,22 @@ MonoBehaviour:
   - {x: 3.5, y: -1.5, z: -1}
   - {x: 4.5, y: -1.5, z: -1}
   - {x: 5.5, y: -1.5, z: -1}
+  meatPrefab: {fileID: 1055579465556334, guid: b2c3b45710244b343b5557d113d380f4, type: 2}
   applePrefab: {fileID: 1055579465556334, guid: 3a71ee81715c94d4ca78696a49af2459,
     type: 2}
-  weaponPrefab: {fileID: 1055579465556334, guid: 3a089c11353b0cb4083aa676ec71a26e,
+  fishPrefab: {fileID: 1055579465556334, guid: e59a66156d5f5ae45afa60a0fe228af5, type: 2}
+  shieldPrefab: {fileID: 1055579465556334, guid: 39680558ebb3ffb4f94fb21c27d416ad,
     type: 2}
-  goldPrefab: {fileID: 1055579465556334, guid: b0dc271147ce74b489daec0e74a7657c, type: 2}
-  crapPrefab: {fileID: 1055579465556334, guid: 554ced06b8dc67249835878898d620cc, type: 2}
+  swordPrefab: {fileID: 1055579465556334, guid: 1f14ed6d71f2f654b964141216c366f5,
+    type: 2}
+  bootPrefab: {fileID: 1055579465556334, guid: 018d153869d58af42b7d269b33cac50a, type: 2}
+  diamondPrefab: {fileID: 1055579465556334, guid: c2f6b718d860868498b078ee6cf181d8,
+    type: 2}
+  coinPrefab: {fileID: 1055579465556334, guid: 5be1fd30bfab0e94190d0d750d8cbd6c, type: 2}
+  canPrefab: {fileID: 1055579465556334, guid: 5b084d9d35d6ac144a9396273844bafd, type: 2}
+  lintPrefab: {fileID: 1055579465556334, guid: 50e612d58df74e24a96ebc94f8ad0271, type: 2}
+  bonePrefab: {fileID: 1055579465556334, guid: 0879fdb1e3afe0e4fb6c43beff14131b, type: 2}
+  rockPrefab: {fileID: 1055579465556334, guid: 51c61c22c7e780545b6cf81bf70734bf, type: 2}
 --- !u!4 &1716930479
 Transform:
   m_ObjectHideFlags: 0
