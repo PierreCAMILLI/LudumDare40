@@ -18,6 +18,13 @@ public class PlayerController : MonoBehaviour {
         if (_player == null)
             _player = GetComponent<Player>();
 
-        _player.Velocity = Controls.Instance.Player().Movement;
+        PlayerControls controls = Controls.Instance.Player();
+
+        _player.Velocity = controls.Movement;
+        for(byte i = 0; i < controls.ThrowCount; ++i)
+        {
+            if (controls.Throw(i))
+                _player.Throw(i);
+        }
 	}
 }

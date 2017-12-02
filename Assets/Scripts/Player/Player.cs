@@ -51,8 +51,10 @@ public class Player : SingletonBehaviour<Player> {
 
     }
 
-    public void Throw()
+    public void Throw(byte objectIndex = 0)
     {
+        Inventory.Instance.instanciateItem(Item.Type.APPLE);
+
 
     }
 }
