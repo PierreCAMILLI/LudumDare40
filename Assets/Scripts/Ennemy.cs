@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Ennemy : MonoBehaviour {
 
-	public enum Ennemies {peacefulannimal,animal,hero,goblin};
-	public Ennemies type;
+	public enum Ennemies {peacefulAnimal,animal,hero,goblin};
+	public Ennemies Ennemytype;
 	[Range(0,10)]
 	public float viewRadius;
 	[Range(0,360)]
@@ -15,8 +15,15 @@ public class Ennemy : MonoBehaviour {
 	public List<Transform> visibleTargets = new List<Transform>();
 	public LayerMask obstacleMask;
 
+	[SerializeField]
+	LayerMask targetMask;
 
+	bool seePlayer = false;
+	bool seeItemWanted = false;
 
+	public int MoveSpeed = 4;
+	public int RotationSpeed = 2;
+	private Transform targetMovement;
 	// Use this for initialization
 	void Start () 
 	{
@@ -27,13 +34,50 @@ public class Ennemy : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-
+		Behavior();
+		Move ();
 
 	}
 
 	public void Move()
 	{
+		if (targetMovement != null)
+			moveToTarget (targetMovement);
+	}
 
+	void moveToTarget (Transform targetPosition)
+	{
+		
+		transform.right = targetPosition.position - transform.position;
+		transform.position += transform.right * Time.deltaTime * MoveSpeed;
+	}
+
+	void Behavior()
+	{
+		
+		switch (this.Ennemytype) {
+		case Ennemies.animal:
+			List<GameObject> itmeInVision = new List<GameObject> ();
+			if (visibleTargets.Count == 0)
+				targetMovement = null;
+			
+			foreach (var target in visibleTargets) {
+				Item = target.GetComponent<Item> ();
+				if (item != null) {
+					
+				}
+				else if (target.GetComponent<Player> () != null) {
+					targetMovement = target;
+				}
+				else
+				{
+					targetMovement = null;
+				}
+			}
+			break;
+		default:
+			break;
+		}
 	}
 
 	private void OnDrawGizmos()
@@ -60,8 +104,7 @@ public class Ennemy : MonoBehaviour {
 
 	void FindVisibleTargets() {
 		visibleTargets.Clear ();
-		Collider2D[] targetsInViewRadius = Physics2D.OverlapCircleAll (transform.position, viewRadius);
-		Debug.Log ("Detected : " + targetsInViewRadius.Length);
+		Collider2D[] targetsInViewRadius = Physics2D.OverlapCircleAll (transform.position, viewRadius,targetMask);
 		for (int i = 0; i < targetsInViewRadius.Length; i++) {
 			Transform target = targetsInViewRadius [i].transform;
 			Vector2 dirToTarget = (target.position - transform.position).normalized;
