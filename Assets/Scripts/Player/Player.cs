@@ -29,4 +29,30 @@ public class Player : SingletonBehaviour<Player> {
         transform.Translate(_velocity * _speed * Time.deltaTime);
         _velocity = Vector2.zero;
     }
+
+    /// <summary>
+    /// Moves the player to a position in the world
+    /// </summary>
+    /// <param name="position"></param>
+    /// <returns>Indicates whether or not the player reached the position</returns>
+    public bool MoveTo(Vector3 position)
+    {
+        Vector3 dir = (position - transform.position);
+        if(Vector2.SqrMagnitude(dir) > _speed * _speed)
+        {
+            _velocity += (Vector2) dir.normalized;
+            return false;
+        }
+        else
+        {
+            transform.position = position;
+            return true;
+        }
+
+    }
+
+    public void Throw()
+    {
+
+    }
 }

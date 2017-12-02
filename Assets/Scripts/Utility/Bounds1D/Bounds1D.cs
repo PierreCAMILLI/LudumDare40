@@ -181,5 +181,10 @@ public struct Bounds1D {
         m_min += value;
         m_max += value;
     }
+
+    public bool IsIn(float value)
+    {
+        return Min >= value && Max <= value;
+    }
     #endregion
 }
