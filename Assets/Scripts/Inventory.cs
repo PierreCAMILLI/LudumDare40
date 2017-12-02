@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Inventory : SingletonBehaviour<Inventory>
@@ -22,6 +23,8 @@ public class Inventory : SingletonBehaviour<Inventory>
     public GameObject lintPrefab;
     public GameObject bonePrefab;
     public GameObject rockPrefab;
+
+    public Sprite[] sprites = new Sprite[12]; 
 
 
     private Item.Element[] slots = new Item.Element[3];
@@ -48,6 +51,20 @@ public class Inventory : SingletonBehaviour<Inventory>
         slots[0] = Item.Element.MEAT;
         slots[1] = Item.Element.MEAT;
         slots[2] = Item.Element.MEAT;
+
+        // c'est pas du debug, cest important, (resource manager behaviour)
+        sprites[0] = meatPrefab.GetComponent<SpriteRenderer>().sprite;
+        sprites[1] = applePrefab.GetComponent<SpriteRenderer>().sprite;
+        sprites[2] = fishPrefab.GetComponent<SpriteRenderer>().sprite;
+        sprites[3] = shieldPrefab.GetComponent<SpriteRenderer>().sprite;
+        sprites[4] = swordPrefab.GetComponent<SpriteRenderer>().sprite;
+        sprites[5] = bootPrefab.GetComponent<SpriteRenderer>().sprite;
+        sprites[6] = diamondPrefab.GetComponent<SpriteRenderer>().sprite;
+        sprites[7] = coinPrefab.GetComponent<SpriteRenderer>().sprite;
+        sprites[8] = canPrefab.GetComponent<SpriteRenderer>().sprite; 
+        sprites[9] = lintPrefab.GetComponent<SpriteRenderer>().sprite;
+        sprites[10]= bonePrefab.GetComponent<SpriteRenderer>().sprite;
+        sprites[11]= rockPrefab.GetComponent<SpriteRenderer>().sprite;
     }
 
     // Update is called once per frame
@@ -102,6 +119,11 @@ public class Inventory : SingletonBehaviour<Inventory>
             result[i] = inventory[i];
         }
         return result;
+    }
+
+    public Sprite getSprite(Item.Element type)
+    {
+        return sprites[(int)type-1];
     }
 
     public GameObject instanciateItem(Item.Element type)
