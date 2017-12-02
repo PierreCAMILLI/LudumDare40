@@ -20,7 +20,7 @@ public class GameCamera : MonoBehaviour {
 	void Update () {
         UpdateGetFollowing();
 
-        Vector3 viewportPoint = Camera.current.WorldToViewportPoint(_followingObject.position);
+        //Vector3 viewportPoint = Camera.current.WorldToViewportPoint(_followingObject.position);
 	}
 
     void UpdateGetFollowing()

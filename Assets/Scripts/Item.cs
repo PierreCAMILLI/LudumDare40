@@ -8,7 +8,8 @@ public class Item : MonoBehaviour
     {
         APPLE,
         WEAPON,
-        GOLD
+        GOLD,
+        CRAP
     };
 
     public Type type;
