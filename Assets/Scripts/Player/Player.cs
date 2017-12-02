@@ -8,6 +8,13 @@ public class Player : SingletonBehaviour<Player> {
     private float _speed = 1f;
 
     [SerializeField]
+    private float _size = 1f;
+    public float Size
+    {
+        get { return _size; }
+    }
+
+    [SerializeField]
     private float _throwForce = 3f;
 
     private Vector2 _velocity;
@@ -32,6 +39,7 @@ public class Player : SingletonBehaviour<Player> {
 	// Update is called once per frame
 	void Update () {
         UpdateMovements();
+        transform.localScale = Vector3.one * _size;
 	}
 
     void UpdateMovements()

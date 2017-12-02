@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4491619432822470}
   - component: {fileID: 212184129635495332}
   - component: {fileID: 114308677979735518}
+  - component: {fileID: 58099141900064316}
   - component: {fileID: 50187575926187698}
   m_Layer: 0
   m_Name: Weapon
@@ -62,6 +63,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &58099141900064316
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1055579465556334}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!114 &114308677979735518
 MonoBehaviour:
   m_ObjectHideFlags: 1
