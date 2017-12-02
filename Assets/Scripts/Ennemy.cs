@@ -182,10 +182,10 @@ public class Ennemy : MonoBehaviour {
 					GameObject itemToPop = Inventory.Instance.instanciateItem (_items [0]);
 					_items.RemoveAt (0);
 					itemToPop.transform.position = -transform.right;
+					} else if (_items.Count == 0) {
+						Hurt ();
 					}
 				}
-			}
-			
 			break;			
 		default:
 			break;
