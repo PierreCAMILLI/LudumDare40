@@ -22,7 +22,7 @@ public class PlayerControls
     [SerializeField]
     string _verticalAxis = "Vertical";
     [SerializeField]
-    KeyCode _throw;
+    KeyCode[] _throw;
     [SerializeField]
     KeyCode _melee;
 
@@ -40,11 +40,6 @@ public class PlayerControls
     public Vector2 Movement
     {
         get { return new Vector2(Horizontal, Vertical).normalized; }
-    }
-    
-    public bool Throw
-    {
-        get { return Input.GetKeyDown(_throw); }
     }
     
     public bool Melee
