@@ -83,6 +83,15 @@ public class Inventory : SingletonBehaviour<Inventory>
     //  container modifier
     public void PushFront(Item item)
     {
+        for (int i = 0; i < 3; i++)
+        {
+            if (slots[i] == Item.Element.NONE)
+            {
+                slots[i] = item.element;
+                return;
+            }
+        }
+
         int moncul = Random.Range(0, 3);
         inventory.Insert(0, slots[moncul]);
         slots[moncul] = item.element;
