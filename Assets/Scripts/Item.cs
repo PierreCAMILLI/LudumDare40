@@ -55,8 +55,9 @@ public class Item : MonoBehaviour
 		if(thrown)
         {
             if (!rb) rb = GetComponent<Rigidbody2D>();
-            if (rb.velocity.magnitude <= 0.001F)
+            if (rb.velocity.magnitude <= 0.01F)
             {
+                rb.drag = 1.0F;
                 thrown = false;
             }
         }
