@@ -7,8 +7,9 @@ public class Ennemy : MonoBehaviour {
 	public enum Ennemies {peacefulAnimal,animal,hero,goblin};
 	public Ennemies Ennemytype;
 
-    List<Item.Type> _items;
-
+	List<Item.Type> _items = new List<Item.Type>();
+	[Range(0,10)]
+	public int InventorySize = 0;
     public bool HasItems
     {
         get { return _items.Count > 0; }
@@ -59,6 +60,7 @@ public class Ennemy : MonoBehaviour {
 
 	public void Move()
 	{
+		Debug.Log (targetMovement);
 		if (targetMovement != null)
 			moveToTarget (targetMovement);
 	}
@@ -83,45 +85,29 @@ public class Ennemy : MonoBehaviour {
 				targetMovement = null;
 			
 			foreach (var target in visibleTargets) {
-				Item item = target.GetComponent<Item> ();
-				if (item != null) {
-					if (item.type == Item.Type.FOOD)
-						wantedItemInVision.Add (target);
+				Item item = null;
+				Player player = null;
+				if (target != null) {
+					item = target.GetComponent<Item> ();
+					player = target.GetComponent<Player> ();
 				}
-				else if (target.GetComponent<Player> () != null) {
+				
+				if (item != null && _items.Count != InventorySize) {
+					if (item.type == Item.Type.FOOD) {
+						wantedItemInVision.Add (target);
+					}
+				} else if (player != null) {
+					Debug.Log ("Joueur");
 					targetMovement = target;
 				}
-				else
-				{
-					targetMovement = null;
-				}
-				if (wantedItemInVision.Count != 0)
-					targetMovement = wantedItemInVision [0];
+			}
+			if (wantedItemInVision.Count != 0) {
+				targetMovement = wantedItemInVision [0];
 			}
 			break;
 		case Ennemies.goblin:
 			break;
 		case Ennemies.hero:
-			
-			if (visibleTargets.Count == 0)
-				targetMovement = null;
-
-			foreach (var target in visibleTargets) {
-				Item item = target.GetComponent<Item> ();
-				if (item != null) {
-					if (item.type == Item.Type.WEAPON)
-						wantedItemInVision.Add (target);
-				}
-				else if (target.GetComponent<Player> () != null) {
-					targetMovement = target;
-				}
-				else
-				{
-					targetMovement = null;
-				}
-				if (wantedItemInVision.Count != 0)
-					targetMovement = wantedItemInVision [0];
-			}
 			break;
 		default:
 			break;
@@ -180,10 +166,35 @@ public class Ennemy : MonoBehaviour {
         }
     }
 
+	public void touchObject(Item item)
+	{
+		switch (this.Ennemytype) {
+		case Ennemies.animal:
+			if (item.type == Item.Type.FOOD && _items.Count != InventorySize) 
+			{
+				targetMovement = null;
+				Destroy (item.gameObject);
+			}
+			
+			break;			
+		default:
+			break;
+		}
+	}
+
     IEnumerator StunRoutine()
     {
         yield return new WaitForSeconds(_stunTime);
         _stunned = false;
     }
+
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		Item item = collision.gameObject.GetComponent<Item>();
+		Debug.Log ("Collision");
+		if (item != null) {
+			touchObject (item);
+		}
+	}
 
 }

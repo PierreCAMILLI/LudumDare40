@@ -53,6 +53,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Ennemytype: 1
+  InventorySize: 2
+  _stunTime: 0
   viewRadius: 5.9
   viewAngle: 60
   visibleTargets: []
