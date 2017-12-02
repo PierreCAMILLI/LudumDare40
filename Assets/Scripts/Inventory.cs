@@ -1,12 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Inventory : SingletonBehaviour<Inventory>
 {
-    public Vector3[] itemExposedPosition = new Vector3[3];
-    public Vector3[] itemSlotsPosition = new Vector3[3];
-
     public GameObject meatPrefab;
     public GameObject applePrefab;
     public GameObject fishPrefab;
@@ -23,6 +21,8 @@ public class Inventory : SingletonBehaviour<Inventory>
     public GameObject bonePrefab;
     public GameObject rockPrefab;
 
+    private Sprite[] sprites = new Sprite[12]; 
+
 
     private Item.Element[] slots = new Item.Element[3];
     private List<Item.Element> inventory;
@@ -37,17 +37,31 @@ public class Inventory : SingletonBehaviour<Inventory>
 
         // debug
         inventory.Insert(0, Item.Element.MEAT);
-        inventory.Insert(0, Item.Element.MEAT);
-        inventory.Insert(0, Item.Element.MEAT);
-        inventory.Insert(0, Item.Element.MEAT);
-        inventory.Insert(0, Item.Element.MEAT);
-        inventory.Insert(0, Item.Element.MEAT);
-        inventory.Insert(0, Item.Element.MEAT);
-        inventory.Insert(0, Item.Element.MEAT);
+        inventory.Insert(0, Item.Element.APPLE);
+        inventory.Insert(0, Item.Element.BONE);
+        inventory.Insert(0, Item.Element.BOOT);
+        inventory.Insert(0, Item.Element.CAN);
+        inventory.Insert(0, Item.Element.COIN);
+        inventory.Insert(0, Item.Element.DIAMOND);
+        inventory.Insert(0, Item.Element.FISH);
 
-        slots[0] = Item.Element.MEAT;
+        slots[0] = Item.Element.LINT;
         slots[1] = Item.Element.MEAT;
-        slots[2] = Item.Element.MEAT;
+        slots[2] = Item.Element.ROCK;
+
+        // c'est pas du debug, cest important, (resource manager behaviour)
+        sprites[0] = meatPrefab.GetComponent<SpriteRenderer>().sprite;
+        sprites[1] = applePrefab.GetComponent<SpriteRenderer>().sprite;
+        sprites[2] = fishPrefab.GetComponent<SpriteRenderer>().sprite;
+        sprites[3] = shieldPrefab.GetComponent<SpriteRenderer>().sprite;
+        sprites[4] = swordPrefab.GetComponent<SpriteRenderer>().sprite;
+        sprites[5] = bootPrefab.GetComponent<SpriteRenderer>().sprite;
+        sprites[6] = diamondPrefab.GetComponent<SpriteRenderer>().sprite;
+        sprites[7] = coinPrefab.GetComponent<SpriteRenderer>().sprite;
+        sprites[8] = canPrefab.GetComponent<SpriteRenderer>().sprite; 
+        sprites[9] = lintPrefab.GetComponent<SpriteRenderer>().sprite;
+        sprites[10]= bonePrefab.GetComponent<SpriteRenderer>().sprite;
+        sprites[11]= rockPrefab.GetComponent<SpriteRenderer>().sprite;
     }
 
     // Update is called once per frame
@@ -69,7 +83,18 @@ public class Inventory : SingletonBehaviour<Inventory>
     //  container modifier
     public void PushFront(Item item)
     {
-        inventory.Insert(0, item.element);
+        for (int i = 0; i < 3; i++)
+        {
+            if (slots[i] == Item.Element.NONE)
+            {
+                slots[i] = item.element;
+                return;
+            }
+        }
+
+        int moncul = Random.Range(0, 3);
+        inventory.Insert(0, slots[moncul]);
+        slots[moncul] = item.element;
     }
 
     public Item.Element popItem(int index)
@@ -99,9 +124,15 @@ public class Inventory : SingletonBehaviour<Inventory>
         Item.Element[] result = new Item.Element[3];
         for (int i = 0; i < 3; i++)
         {
-            result[i] = inventory[i];
+            if (i < inventory.Count) result[i] = inventory[i];
+            else result[i] = Item.Element.NONE;
         }
         return result;
+    }
+
+    public Sprite getSprite(Item.Element type)
+    {
+        return sprites[(int)type-1];
     }
 
     public GameObject instanciateItem(Item.Element type)

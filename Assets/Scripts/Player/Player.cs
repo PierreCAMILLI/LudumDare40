@@ -76,6 +76,14 @@ public class Player : SingletonBehaviour<Player> {
         {
             go.transform.position = transform.position + (Vector3)Forward;
 
+            Item item = go.GetComponent<Item>();
+            if (item != null)
+            {
+                item.thrown = true;
+                if(item.type == Item.Type.FOOD)
+                    item.cooldownSensitive = true;
+            }
+
             Rigidbody2D rigidbody = go.GetComponent<Rigidbody2D>();
             if (rigidbody != null)
             {
@@ -92,6 +100,33 @@ public class Player : SingletonBehaviour<Player> {
         if(enemy != null)
         {
             enemy.Hurt();
+        }
+
+        Item item = collision.gameObject.GetComponent<Item>();
+        if (item != null)
+        {
+            Rigidbody2D rigidbody = item.GetComponent<Rigidbody2D>();
+            float controlSpeed = Controls.Instance.Player().Movement.sqrMagnitude;
+            if (rigidbody != null && rigidbody.velocity.sqrMagnitude <=  _speed * _speed * controlSpeed)
+            {
+                Inventory.Instance.PushFront(item);
+                Destroy(item.gameObject);
+            }
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        Item item = collision.gameObject.GetComponent<Item>();
+        if (item != null)
+        {
+            Rigidbody2D rigidbody = item.GetComponent<Rigidbody2D>();
+            float controlSpeed = Controls.Instance.Player().Movement.sqrMagnitude;
+            if (rigidbody != null && rigidbody.velocity.sqrMagnitude <= _speed * _speed * controlSpeed)
+            {
+                Inventory.Instance.PushFront(item);
+                Destroy(item.gameObject);
+            }
         }
     }
 }
