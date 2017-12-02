@@ -21,7 +21,7 @@ public class Inventory : SingletonBehaviour<Inventory>
     public GameObject bonePrefab;
     public GameObject rockPrefab;
 
-    public Sprite[] sprites = new Sprite[12]; 
+    private Sprite[] sprites = new Sprite[12]; 
 
 
     private Item.Element[] slots = new Item.Element[3];
