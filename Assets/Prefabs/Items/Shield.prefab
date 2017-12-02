@@ -93,6 +93,7 @@ MonoBehaviour:
   element: 4
   thrown: 0
   cooldownSensitive: 0
+  cooldownTime: 2
 --- !u!212 &212184129635495332
 SpriteRenderer:
   m_ObjectHideFlags: 1
