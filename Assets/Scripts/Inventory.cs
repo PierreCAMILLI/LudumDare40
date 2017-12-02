@@ -113,7 +113,8 @@ public class Inventory : SingletonBehaviour<Inventory>
         Item.Element[] result = new Item.Element[3];
         for (int i = 0; i < 3; i++)
         {
-            result[i] = inventory[i];
+            if (i < inventory.Count) result[i] = inventory[i];
+            else result[i] = Item.Element.NONE;
         }
         return result;
     }
