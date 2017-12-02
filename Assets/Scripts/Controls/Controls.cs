@@ -7,9 +7,9 @@ public class Controls : SingletonBehaviour<Controls> {
     [SerializeField]
     private PlayerControls[] _players;
 
-    public PlayerControls Player(byte playerNumber = 0)
+    public PlayerControls Player(byte playerIndex = 0)
     {
-        return _players[playerNumber];
+        return _players[playerIndex];
     }
 
 }
@@ -40,6 +40,11 @@ public class PlayerControls
     public Vector2 Movement
     {
         get { return new Vector2(Horizontal, Vertical).normalized; }
+    }
+
+    public bool Throw(byte index)
+    {
+        return Input.GetKeyDown(_throw[index]);
     }
     
     public bool Melee
