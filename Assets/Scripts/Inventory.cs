@@ -6,14 +6,26 @@ public class Inventory : SingletonBehaviour<Inventory>
 {
     public Vector3[] itemExposedPosition = new Vector3[3];
     public Vector3[] itemSlotsPosition = new Vector3[3];
+
+    public GameObject meatPrefab;
     public GameObject applePrefab;
-    public GameObject weaponPrefab;
-    public GameObject goldPrefab;
-    public GameObject crapPrefab;
+    public GameObject fishPrefab;
+
+    public GameObject shieldPrefab;
+    public GameObject swordPrefab;
+    public GameObject bootPrefab;
+
+    public GameObject diamondPrefab;
+    public GameObject coinPrefab;
+
+    public GameObject canPrefab;
+    public GameObject lintPrefab;
+    public GameObject bonePrefab;
+    public GameObject rockPrefab;
 
 
     private GameObject[] slots = new GameObject[3];
-    private List<Item.Type> inventory;
+    private List<Item.Element> inventory;
     private List<GameObject> itemExposed;
 
 
@@ -21,21 +33,21 @@ public class Inventory : SingletonBehaviour<Inventory>
     void Start ()
     {
         itemExposed = new List<GameObject>();
-        inventory = new List<Item.Type>();
-        
-        // debug
-        inventory.Insert(0, Item.Type.FOOD);
-        inventory.Insert(0, Item.Type.GOLD);
-        inventory.Insert(0, Item.Type.GOLD);
-		inventory.Insert(0, Item.Type.FOOD);
-        inventory.Insert(0, Item.Type.WEAPON);
-		inventory.Insert(0, Item.Type.FOOD);
-		inventory.Insert(0, Item.Type.FOOD);
-        inventory.Insert(0, Item.Type.WEAPON);
+        inventory = new List<Item.Element>();
 
-		slots[0] = instanciateItem(Item.Type.FOOD);
-        slots[1] = instanciateItem(Item.Type.WEAPON);
-        slots[2] = instanciateItem(Item.Type.WEAPON);
+        // debug
+        inventory.Insert(0, Item.Element.MEAT);
+        inventory.Insert(0, Item.Element.MEAT);
+        inventory.Insert(0, Item.Element.MEAT);
+		inventory.Insert(0, Item.Element.MEAT);
+        inventory.Insert(0, Item.Element.MEAT);
+		inventory.Insert(0, Item.Element.MEAT);
+		inventory.Insert(0, Item.Element.MEAT);
+        inventory.Insert(0, Item.Element.MEAT);
+
+		slots[0] = instanciateItem(Item.Element.MEAT);
+        slots[1] = instanciateItem(Item.Element.MEAT);
+        slots[2] = instanciateItem(Item.Element.MEAT);
 
         slots[0].transform.position = itemSlotsPosition[0];
         slots[1].transform.position = itemSlotsPosition[1];
@@ -45,7 +57,7 @@ public class Inventory : SingletonBehaviour<Inventory>
 	// Update is called once per frame
 	void Update ()
     {
-        for (int i = 0; i < itemExposedPosition.Length && i < itemExposed.Count; i++)
+        /*for (int i = 0; i < itemExposedPosition.Length && i < itemExposed.Count; i++)
             GameObject.Destroy(itemExposed[i]);
 
         itemExposed.Clear();
@@ -55,21 +67,21 @@ public class Inventory : SingletonBehaviour<Inventory>
             GameObject item = instanciateItem(inventory[i]);
             item.transform.position = itemExposedPosition[i];
             itemExposed.Insert(i, item);
-        }
+        }*/
     }
 
     //  container modifier
     public void PushFront(Item item)
     {
-        inventory.Insert(0, item.type);
+        inventory.Insert(0, item.element);
     }
 
-    public Item.Type getItem(int index)
+    public Item.Element getItem(int index)
     {
-        Item.Type item = Item.Type.NONE;
+        Item.Element item = Item.Element.NONE;
         if (index >= 0 && index < 3 && slots[index])
         {
-            item = slots[index].GetComponent<Item>().type;
+            item = slots[index].GetComponent<Item>().element;
             GameObject.Destroy(slots[index]);
 
             if (inventory.Count > 0)
@@ -83,14 +95,26 @@ public class Inventory : SingletonBehaviour<Inventory>
         return item;
     }
 
-    public GameObject instanciateItem(Item.Type type)
+    public GameObject instanciateItem(Item.Element type)
     {
         switch (type)
         {
-			case Item.Type.FOOD:  return Instantiate(applePrefab);
-            case Item.Type.WEAPON: return Instantiate(weaponPrefab);
-            case Item.Type.GOLD:   return Instantiate(goldPrefab);
-            case Item.Type.CRAP:   return Instantiate(crapPrefab);
+			case Item.Element.MEAT:   return Instantiate(meatPrefab);
+            case Item.Element.APPLE:  return Instantiate(applePrefab);
+            case Item.Element.FISH:   return Instantiate(fishPrefab);
+
+            case Item.Element.SHIELD: return Instantiate(shieldPrefab);
+            case Item.Element.SWORD:  return Instantiate(swordPrefab);
+            case Item.Element.BOOT:   return Instantiate(bootPrefab);
+
+            case Item.Element.DIAMOND: return Instantiate(diamondPrefab);
+            case Item.Element.COIN:    return Instantiate(coinPrefab);
+
+            case Item.Element.CAN:  return Instantiate(canPrefab);
+            case Item.Element.LINT: return Instantiate(lintPrefab);
+            case Item.Element.BONE: return Instantiate(bonePrefab);
+            case Item.Element.ROCK: return Instantiate(rockPrefab);
+
             default: return null;
         }
     }
