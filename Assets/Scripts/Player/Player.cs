@@ -14,9 +14,16 @@ public class Player : SingletonBehaviour<Player> {
         set { _velocity = value; }
     }
 
+    private Vector2 _forward;
+    public Vector2 Forward
+    {
+        get { return _forward; }
+        set { _forward = value; }
+    }
+
 	// Use this for initialization
 	void Start () {
-		
+        _forward = Vector2.down;
 	}
 	
 	// Update is called once per frame
@@ -53,8 +60,12 @@ public class Player : SingletonBehaviour<Player> {
 
     public void Throw(byte objectIndex = 0)
     {
-        Inventory.Instance.instanciateItem(Item.Type.APPLE);
+        GameObject go = Inventory.Instance.instanciateItem((Item.Type) objectIndex);
 
-
+        Rigidbody2D rigidbody = go.GetComponent<Rigidbody2D>();
+        if(rigidbody != null)
+        {
+            rigidbody.AddForce(Forward, ForceMode2D.Impulse);
+        }
     }
 }

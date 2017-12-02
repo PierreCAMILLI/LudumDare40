@@ -20,7 +20,12 @@ public class PlayerController : MonoBehaviour {
 
         PlayerControls controls = Controls.Instance.Player();
 
+        // Movements
         _player.Velocity = controls.Movement;
+        if (controls.Movement != Vector2.zero)
+            _player.Forward = controls.Movement;
+
+        // Throw
         for(byte i = 0; i < controls.ThrowCount; ++i)
         {
             if (controls.Throw(i))
