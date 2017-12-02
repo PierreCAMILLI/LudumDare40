@@ -7,9 +7,10 @@ public class Ennemy : MonoBehaviour {
 	public enum Ennemies {peacefulAnimal,animal,hero,goblin};
 	public Ennemies Ennemytype;
 
-	List<Item.Type> _items = new List<Item.Type>();
+	List<Item.Element> _items = new List<Item.Element>();
 	[Range(0,10)]
 	public int InventorySize = 0;
+	public bool flee = false;
     public bool HasItems
     {
         get { return _items.Count > 0; }
@@ -55,13 +56,19 @@ public class Ennemy : MonoBehaviour {
 	{
 		Behavior();
 		Move ();
+		SpriteRenderer sprite = GetComponent<SpriteRenderer> ();
+		if (flee && !sprite.isVisible)
+			Destroy (this.gameObject);
 
 	}
 
 	public void Move()
 	{
-		Debug.Log (targetMovement);
-		if (targetMovement != null)
+		if (flee) {
+			transform.right = transform.position + Player.Instance.transform.position;
+			transform.position += transform.right * Time.deltaTime * MoveSpeed*20;
+		}
+		if (targetMovement != null && !flee)
 			moveToTarget (targetMovement);
 	}
 
@@ -97,7 +104,6 @@ public class Ennemy : MonoBehaviour {
 						wantedItemInVision.Add (target);
 					}
 				} else if (player != null) {
-					Debug.Log ("Joueur");
 					targetMovement = target;
 				}
 			}
@@ -119,7 +125,6 @@ public class Ennemy : MonoBehaviour {
 		float anglePersonnage = transform.eulerAngles.z;
 		float anglePos = ((anglePersonnage + viewAngle/2) * Mathf.Deg2Rad);
 		float angleNeg = ((anglePersonnage - viewAngle/2) * Mathf.Deg2Rad) ;
-		Debug.Log (anglePersonnage);
 		Vector2 pointView  = new Vector2(viewRadius * Mathf.Cos(((anglePos))),viewRadius * Mathf.Sin(((anglePos))));
 		Vector2 pointView2 = new Vector2(viewRadius * Mathf.Cos(((angleNeg))),viewRadius * Mathf.Sin(((angleNeg))));
 
@@ -149,11 +154,6 @@ public class Ennemy : MonoBehaviour {
 				}
 			}
 		}
-
-		if (visibleTargets.Count == 0)
-			Debug.Log ("I see nobody");
-		else
-			Debug.Log ("I see " + visibleTargets.Count + " things");
 			
 	}
 
@@ -170,10 +170,20 @@ public class Ennemy : MonoBehaviour {
 	{
 		switch (this.Ennemytype) {
 		case Ennemies.animal:
-			if (item.type == Item.Type.FOOD && _items.Count != InventorySize) 
-			{
+			if (item.type == Item.Type.FOOD && _items.Count != InventorySize) {
 				targetMovement = null;
 				Destroy (item.gameObject);
+				_items.Insert (0,item.element);
+				if (_items.Count == InventorySize) {
+					flee = true;
+				}
+			} else if (item.type == Item.Type.WEAPON || item.type == Item.Type.GOLD) {
+				if (_items.Count != 0) {
+					GameObject itemToPop = Inventory.Instance.instanciateItem (_items [0]);
+					_items.RemoveAt (0);
+					itemToPop.transform.position = -transform.right;
+					}
+				}
 			}
 			
 			break;			

@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212931475558577106}
   - component: {fileID: 114685561633980620}
   - component: {fileID: 114370225477992396}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,6 +67,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_dontDestroyOnLoad: 0
   _speed: 1
+  _size: 1
   _throwForce: 3
 --- !u!212 &212931475558577106
 SpriteRenderer:
