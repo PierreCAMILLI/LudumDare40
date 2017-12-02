@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4491619432822470}
   - component: {fileID: 212184129635495332}
   - component: {fileID: 114308677979735518}
+  - component: {fileID: 50287037809431278}
   m_Layer: 0
   m_Name: Gold
   m_TagString: Untagged
@@ -41,6 +42,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50287037809431278
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1055579465556334}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0.5
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!114 &114308677979735518
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -52,7 +73,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fc1ff61ada821a4e9bfaa4697b361ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
+  type: 3
 --- !u!212 &212184129635495332
 SpriteRenderer:
   m_ObjectHideFlags: 1

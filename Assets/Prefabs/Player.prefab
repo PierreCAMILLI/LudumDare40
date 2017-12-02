@@ -67,6 +67,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_dontDestroyOnLoad: 0
   _speed: 1
+  _throwForce: 3
 --- !u!212 &212931475558577106
 SpriteRenderer:
   m_ObjectHideFlags: 1

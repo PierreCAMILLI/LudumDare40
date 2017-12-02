@@ -6,7 +6,9 @@ public class Item : MonoBehaviour
 {
     public enum Type
     {
-        FOOD,
+        
+        NONE,
+		FOOD,
         WEAPON,
         GOLD,
         CRAP

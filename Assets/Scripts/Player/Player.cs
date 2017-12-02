@@ -7,6 +7,9 @@ public class Player : SingletonBehaviour<Player> {
     [SerializeField]
     private float _speed = 1f;
 
+    [SerializeField]
+    private float _throwForce = 3f;
+
     private Vector2 _velocity;
     public Vector2 Velocity
     {
@@ -14,9 +17,16 @@ public class Player : SingletonBehaviour<Player> {
         set { _velocity = value; }
     }
 
+    private Vector2 _forward;
+    public Vector2 Forward
+    {
+        get { return _forward; }
+        set { _forward = value; }
+    }
+
 	// Use this for initialization
 	void Start () {
-		
+        _forward = Vector2.down;
 	}
 	
 	// Update is called once per frame
@@ -51,10 +61,20 @@ public class Player : SingletonBehaviour<Player> {
 
     }
 
-    public void Throw(byte objectIndex = 0)
+    public bool Throw(byte objectIndex = 0)
     {
-        Inventory.Instance.instanciateItem(Item.Type.APPLE);
+        GameObject go = Inventory.Instance.instanciateItem(Inventory.Instance.getItem(objectIndex));
+        if(go != null)
+        {
+            go.transform.position = transform.position + (Vector3)Forward;
 
-
+            Rigidbody2D rigidbody = go.GetComponent<Rigidbody2D>();
+            if (rigidbody != null)
+            {
+                rigidbody.AddForce(Forward * _throwForce, ForceMode2D.Impulse);
+            }
+            return true;
+        }
+        return false;
     }
 }
