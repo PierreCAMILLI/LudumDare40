@@ -451,7 +451,7 @@ MonoBehaviour:
   - {x: 4.5, y: -4.5, z: -1}
   - {x: 4.5, y: -3.5, z: -1}
   - {x: 4.5, y: -2.5, z: -1}
-  itemSlots:
+  itemSlotsPosition:
   - {x: 3.5, y: -1.5, z: -1}
   - {x: 4.5, y: -1.5, z: -1}
   - {x: 5.5, y: -1.5, z: -1}
@@ -460,6 +460,7 @@ MonoBehaviour:
   weaponPrefab: {fileID: 1055579465556334, guid: 3a089c11353b0cb4083aa676ec71a26e,
     type: 2}
   goldPrefab: {fileID: 1055579465556334, guid: b0dc271147ce74b489daec0e74a7657c, type: 2}
+  crapPrefab: {fileID: 1055579465556334, guid: 554ced06b8dc67249835878898d620cc, type: 2}
 --- !u!4 &1716930479
 Transform:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ public class Item : MonoBehaviour
 {
     public enum Type
     {
+        NONE,
         APPLE,
         WEAPON,
         GOLD,
