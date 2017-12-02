@@ -7,6 +7,9 @@ public class Player : SingletonBehaviour<Player> {
     [SerializeField]
     private float _speed = 1f;
 
+    [SerializeField]
+    private float _throwForce = 3f;
+
     private Vector2 _velocity;
     public Vector2 Velocity
     {
@@ -58,15 +61,20 @@ public class Player : SingletonBehaviour<Player> {
 
     }
 
-    public void Throw(byte objectIndex = 0)
+    public bool Throw(byte objectIndex = 0)
     {
         GameObject go = Inventory.Instance.instanciateItem((Item.Type) objectIndex);
-        go.transform.position = transform.position;
-
-        Rigidbody2D rigidbody = go.GetComponent<Rigidbody2D>();
-        if(rigidbody != null)
+        if(go != null)
         {
-            rigidbody.AddForce(Forward, ForceMode2D.Impulse);
+            go.transform.position = transform.position + (Vector3)Forward;
+
+            Rigidbody2D rigidbody = go.GetComponent<Rigidbody2D>();
+            if (rigidbody != null)
+            {
+                rigidbody.AddForce(Forward * _throwForce, ForceMode2D.Impulse);
+            }
+            return true;
         }
+        return false;
     }
 }

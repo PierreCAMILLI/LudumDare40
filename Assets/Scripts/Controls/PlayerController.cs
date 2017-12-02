@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour {
         // Movements
         _player.Velocity = controls.Movement;
         if (controls.Movement != Vector2.zero)
-            _player.Forward = controls.Movement;
+            _player.Forward = controls.Movement.normalized;
 
         // Throw
         for(byte i = 0; i < controls.ThrowCount; ++i)
