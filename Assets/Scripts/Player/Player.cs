@@ -79,10 +79,19 @@ public class Player : SingletonBehaviour<Player> {
             Rigidbody2D rigidbody = go.GetComponent<Rigidbody2D>();
             if (rigidbody != null)
             {
-                rigidbody.AddForce(Forward * _throwForce, ForceMode2D.Impulse);
+                rigidbody.AddForce((Forward) * _throwForce + (Velocity * _speed), ForceMode2D.Impulse);
             }
             return true;
         }
         return false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Ennemy enemy = collision.gameObject.GetComponent<Ennemy>();
+        if(enemy != null)
+        {
+            enemy.Hurt();
+        }
     }
 }

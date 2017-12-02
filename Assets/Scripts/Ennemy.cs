@@ -6,6 +6,24 @@ public class Ennemy : MonoBehaviour {
 
 	public enum Ennemies {peacefulAnimal,animal,hero,goblin};
 	public Ennemies Ennemytype;
+
+    List<Item.Type> _items;
+
+    public bool HasItems
+    {
+        get { return _items.Count > 0; }
+    }
+
+    private bool _stunned = false;
+    public bool Stunned
+    {
+        get { return _stunned; }
+        set { _stunned = value; }
+    }
+
+    [SerializeField]
+    private float _stunTime;
+
 	[Range(0,10)]
 	public float viewRadius;
 	[Range(0,360)]
@@ -153,5 +171,19 @@ public class Ennemy : MonoBehaviour {
 			
 	}
 
+    public void Hurt()
+    {
+        if (!HasItems)
+        {
+            _stunned = true;
+            StartCoroutine(StunRoutine());
+        }
+    }
+
+    IEnumerator StunRoutine()
+    {
+        yield return new WaitForSeconds(_stunTime);
+        _stunned = false;
+    }
 
 }
