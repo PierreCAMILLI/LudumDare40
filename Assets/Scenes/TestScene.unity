@@ -132,6 +132,11 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!4 &840892926 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4503708702610882, guid: e024137e73bdf9345bd63722467b7205,
+    type: 2}
+  m_PrefabInternal: {fileID: 1871348801}
 --- !u!1 &1050778978
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,15 +302,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37aed407b7c30e04290a2ea59f3c12e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _followingObject: {fileID: 0}
-  _zoneWidth:
-    m_min: -0.8
-    m_max: 0.8
-    restrict: 0
-  _zoneHeight:
-    m_min: 0
-    m_max: 0
-    restrict: 0
+  _followingObject: {fileID: 840892926}
+  _velocity: {x: 0, y: 0}
+  _smoothTime: 0
+  _zoomCoefficient: 5
 --- !u!1001 &1871348801
 Prefab:
   m_ObjectHideFlags: 0
@@ -422,7 +422,7 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
-  itemSlots:
+  itemSlotsPosition:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
@@ -431,6 +431,7 @@ MonoBehaviour:
   weaponPrefab: {fileID: 1055579465556334, guid: 3a089c11353b0cb4083aa676ec71a26e,
     type: 2}
   goldPrefab: {fileID: 1055579465556334, guid: b0dc271147ce74b489daec0e74a7657c, type: 2}
+  crapPrefab: {fileID: 0}
 --- !u!4 &2134826115
 Transform:
   m_ObjectHideFlags: 0

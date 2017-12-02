@@ -54,17 +54,21 @@ public class Ennemy : MonoBehaviour {
 
 	void Behavior()
 	{
-		
+		List<Transform> wantedItemInVision = new List<Transform> ();
 		switch (this.Ennemytype) {
+		case Ennemies.peacefulAnimal:
+
+			break;
 		case Ennemies.animal:
-			List<GameObject> itmeInVision = new List<GameObject> ();
+			
 			if (visibleTargets.Count == 0)
 				targetMovement = null;
 			
 			foreach (var target in visibleTargets) {
 				Item item = target.GetComponent<Item> ();
 				if (item != null) {
-					
+					if (item.type == Item.Type.FOOD)
+						wantedItemInVision.Add (target);
 				}
 				else if (target.GetComponent<Player> () != null) {
 					targetMovement = target;
@@ -73,6 +77,32 @@ public class Ennemy : MonoBehaviour {
 				{
 					targetMovement = null;
 				}
+				if (wantedItemInVision.Count != 0)
+					targetMovement = wantedItemInVision [0];
+			}
+			break;
+		case Ennemies.goblin:
+			break;
+		case Ennemies.hero:
+			
+			if (visibleTargets.Count == 0)
+				targetMovement = null;
+
+			foreach (var target in visibleTargets) {
+				Item item = target.GetComponent<Item> ();
+				if (item != null) {
+					if (item.type == Item.Type.WEAPON)
+						wantedItemInVision.Add (target);
+				}
+				else if (target.GetComponent<Player> () != null) {
+					targetMovement = target;
+				}
+				else
+				{
+					targetMovement = null;
+				}
+				if (wantedItemInVision.Count != 0)
+					targetMovement = wantedItemInVision [0];
 			}
 			break;
 		default:
