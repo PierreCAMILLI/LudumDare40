@@ -61,6 +61,7 @@ public class Player : SingletonBehaviour<Player> {
     public void Throw(byte objectIndex = 0)
     {
         GameObject go = Inventory.Instance.instanciateItem((Item.Type) objectIndex);
+        go.transform.position = transform.position;
 
         Rigidbody2D rigidbody = go.GetComponent<Rigidbody2D>();
         if(rigidbody != null)
