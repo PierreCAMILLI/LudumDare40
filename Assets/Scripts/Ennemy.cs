@@ -84,7 +84,22 @@ public class Ennemy : MonoBehaviour {
 		List<Transform> wantedItemInVision = new List<Transform> ();
 		switch (this.Ennemytype) {
 		case Ennemies.peacefulAnimal:
-
+			if (visibleTargets.Count == 0)
+				targetMovement = null;
+			foreach (var target in visibleTargets) {
+				Item item = null;
+				if (target != null) {
+					item = target.GetComponent<Item> ();
+					if (item != null && _items.Count != InventorySize) {
+						if (item.type == Item.Type.FOOD) {
+							wantedItemInVision.Add (target);
+						}
+					}
+					if (wantedItemInVision.Count != 0) {
+						targetMovement = wantedItemInVision [0];
+					}
+				}
+			}
 			break;
 		case Ennemies.animal:
 			
@@ -186,7 +201,26 @@ public class Ennemy : MonoBehaviour {
 						Hurt ();
 					}
 				}
-			break;			
+			break;
+		case Ennemies.peacefulAnimal:
+				if (item.type == Item.Type.FOOD && _items.Count != InventorySize) {
+					targetMovement = null;
+					Destroy(item.gameObject);
+					_items.Insert(0,item.element);
+					if(_items.Count == InventorySize){
+						flee = true;
+					}
+			}  else if (item.type == Item.Type.WEAPON || item.type == Item.Type.GOLD || item.type == Item.Type.CRAP) {
+					if (_items.Count != 0) {
+						GameObject itemToPop = Inventory.Instance.instanciateItem (_items [0]);
+						_items.RemoveAt (0);
+						itemToPop.transform.position = -transform.right;
+					} else if (_items.Count == 0) {
+						Hurt ();
+					}
+				}
+
+			break;
 		default:
 			break;
 		}
@@ -198,10 +232,9 @@ public class Ennemy : MonoBehaviour {
         _stunned = false;
     }
 
-	private void OnCollisionEnter2D(Collision2D collision)
+	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		Item item = collision.gameObject.GetComponent<Item>();
-		Debug.Log ("Collision");
 		if (item != null) {
 			touchObject (item);
 		}
