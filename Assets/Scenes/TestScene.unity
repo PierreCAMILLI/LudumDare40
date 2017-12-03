@@ -158,6 +158,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 018d153869d58af42b7d269b33cac50a, type: 2}
   m_IsPrefabParent: 0
+--- !u!4 &124599477 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4846497208235302, guid: 620db8165a6f73d4c8ddc307bb78d123,
+    type: 2}
+  m_PrefabInternal: {fileID: 1530774011}
 --- !u!1001 &125252919
 Prefab:
   m_ObjectHideFlags: 0
@@ -941,8 +946,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1360682066}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 219.5, y: 123.5, z: 0}
-  m_LocalScale: {x: 0.274375, y: 0.274375, z: 0.274375}
+  m_LocalPosition: {x: 436.5, y: 249, z: 0}
+  m_LocalScale: {x: 0.545625, y: 0.545625, z: 0.545625}
   m_Children:
   - {fileID: 582088336}
   m_Father: {fileID: 0}
@@ -1045,7 +1050,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37aed407b7c30e04290a2ea59f3c12e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _followingObject: {fileID: 840892926}
+  _followingObject: {fileID: 124599477}
   _velocity: {x: 0, y: 0}
   _smoothTime: 0.2
   _zoomCoefficient: 5
@@ -1236,6 +1241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d4da5022554c59428ee405783ca92c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_dontDestroyOnLoad: 0
 --- !u!4 &1714174471
 Transform:
   m_ObjectHideFlags: 0
@@ -1565,7 +1571,7 @@ GameObject:
   - component: {fileID: 2075807337}
   - component: {fileID: 2075807336}
   - component: {fileID: 2075807335}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
