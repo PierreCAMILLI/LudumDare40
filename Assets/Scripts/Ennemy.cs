@@ -74,8 +74,8 @@ public class Ennemy : MonoBehaviour {
 		Behavior();
 		Move ();
 		SpriteRenderer sprite = GetComponent<SpriteRenderer> ();
-		if (flee && !sprite.isVisible)
-			Destroy (this.gameObject);
+            if (flee && !sprite.isVisible)
+                died();
 		}
 
 	}
