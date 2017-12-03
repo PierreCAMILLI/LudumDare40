@@ -19,10 +19,10 @@ public class Player : SingletonBehaviour<Player> {
     {
         get { return _size; }
     }
-    public float SizeTarget
-    {
-        get { return _sizeTarget; }
-    }
+    public float SizeTarget;
+    public float SizeMin = 1.0F;
+    public float SizeMax = 4.0F;
+    public float grownFactor;
 
     [Header("Throw")]
     [SerializeField]
@@ -94,6 +94,10 @@ public class Player : SingletonBehaviour<Player> {
                 item.thrown = true;
                 if(item.type == Item.Type.FOOD)
                     item.cooldownSensitive = true;
+
+                SizeTarget -= grownFactor;
+                _sizeTarget = SizeTarget;
+                SizeTarget = Mathf.Clamp(SizeTarget, SizeMin, SizeMax);
             }
 
             Rigidbody2D rigidbody = go.GetComponent<Rigidbody2D>();
@@ -123,6 +127,10 @@ public class Player : SingletonBehaviour<Player> {
             {
                 Inventory.Instance.PushFront(item);
                 Destroy(item.gameObject);
+
+                SizeTarget += grownFactor;
+                _sizeTarget = SizeTarget;
+                SizeTarget = Mathf.Clamp(SizeTarget, SizeMin, SizeMax);
             }
         }
     }
@@ -139,6 +147,10 @@ public class Player : SingletonBehaviour<Player> {
             {
                 Inventory.Instance.PushFront(item);
                 Destroy(item.gameObject);
+
+                SizeTarget += grownFactor;
+                _sizeTarget = SizeTarget;
+                SizeTarget = Mathf.Clamp(SizeTarget, SizeMin, SizeMax);
             }
         }
 
