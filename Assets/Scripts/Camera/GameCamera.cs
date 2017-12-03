@@ -14,8 +14,13 @@ public class GameCamera : MonoBehaviour {
     [SerializeField]
     float _smoothTime;
 
+    [Header("Resize")]
     [SerializeField]
     float _zoomCoefficient = 5f;
+    [SerializeField]
+    float _zoomSmoothTime = 1f;
+    [SerializeField]
+    float _zoomVelocity;
 
 	// Use this for initialization
 	void Start () {
@@ -36,17 +41,16 @@ public class GameCamera : MonoBehaviour {
             return;
 
         // Handle camera movement
-        Vector2 projectPosition = Camera.main.ViewportToWorldPoint(new Vector2(0.5f,0.5f));
-        Vector3 diff = transform.position - (Vector3) projectPosition;
-        Vector3 newPosition = Vector2.SmoothDamp(projectPosition, _followingObject.position, ref _velocity, _smoothTime, Mathf.Infinity, Time.deltaTime);
-        transform.position = newPosition + diff;
+        Vector3 newPosition = Vector2.SmoothDamp(transform.position, _followingObject.position, ref _velocity, _smoothTime, Mathf.Infinity, Time.deltaTime);
+        newPosition.z = transform.position.z;
+        transform.position = newPosition;
 
         // Handle zoom
         Player player = _followingObject.GetComponent<Player>();
         if(player != null)
         {
-            Camera.main.orthographicSize = _zoomCoefficient * player.SizeTarget;
+            Camera.main.orthographicSize = Mathf.SmoothDamp(Camera.main.orthographicSize, _zoomCoefficient * player.SizeTarget, ref _zoomVelocity, _zoomSmoothTime, Mathf.Infinity, Time.deltaTime);
+            // Camera.main.orthographicSize = _zoomCoefficient * player.SizeTarget;
         }
-
     }
 }

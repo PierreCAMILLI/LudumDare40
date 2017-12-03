@@ -11,7 +11,7 @@ public class Player : SingletonBehaviour<Player> {
     [SerializeField]
     private float _sizeTarget = 1f;
     [SerializeField]
-    private float _resizeTime = 1f;
+    private float _resizeSmoothTime = 1f;
     [SerializeField]
     private float _resizeVelocity;
     private float _size = 1f;
@@ -48,10 +48,10 @@ public class Player : SingletonBehaviour<Player> {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
         UpdateMovements();
         transform.localScale = Vector3.one * _size;
-        _size = Mathf.SmoothDamp(_size, _sizeTarget, ref _resizeVelocity, _resizeTime, Mathf.Infinity, Time.deltaTime);
+        _size = Mathf.SmoothDamp(_size, _sizeTarget, ref _resizeVelocity, _resizeSmoothTime, Mathf.Infinity, Time.deltaTime);
 	}
 
     void UpdateMovements()

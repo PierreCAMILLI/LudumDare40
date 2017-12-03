@@ -22,17 +22,13 @@ public class Inventory : SingletonBehaviour<Inventory>
     public GameObject rockPrefab;
 
     private Sprite[] sprites = new Sprite[12]; 
-
-
     private Item.Element[] slots = new Item.Element[3];
     private List<Item.Element> inventory;
-    private List<GameObject> itemExposed;
 
 
     // Use this for initialization
     void Start()
     {
-        itemExposed = new List<GameObject>();
         inventory = new List<Item.Element>();
 
         // debug
@@ -67,22 +63,21 @@ public class Inventory : SingletonBehaviour<Inventory>
     // Update is called once per frame
     void Update()
     {
-        /*for (int i = 0; i < itemExposedPosition.Length && i < itemExposed.Count; i++)
-            GameObject.Destroy(itemExposed[i]);
-
-        itemExposed.Clear();
-
-        for (int i = 0; i < itemExposedPosition.Length && i < inventory.Count && i < itemExposedPosition.Length; i++)
-        {
-            GameObject item = instanciateItem(inventory[i]);
-            item.transform.position = itemExposedPosition[i];
-            itemExposed.Insert(i, item);
-        }*/
+        
     }
 
     //  container modifier
     public void PushFront(Item item)
     {
+        for (int i = 0; i < 3; i++)
+        {
+            if (slots[i] == Item.Element.NONE)
+            {
+                slots[i] = item.element;
+                return;
+            }
+        }
+
         int moncul = Random.Range(0, 3);
         inventory.Insert(0, slots[moncul]);
         slots[moncul] = item.element;
