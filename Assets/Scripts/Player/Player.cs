@@ -19,10 +19,10 @@ public class Player : SingletonBehaviour<Player> {
     {
         get { return _size; }
     }
-    public float SizeTarget
-    {
-        get { return _sizeTarget; }
-    }
+    public float SizeTarget;
+    public float SizeMin = 1.0F;
+    public float SizeMax = 4.0F;
+    public float grownFactor;
 
     [Header("Throw")]
     [SerializeField]
@@ -86,7 +86,7 @@ public class Player : SingletonBehaviour<Player> {
         GameObject go = Inventory.Instance.instanciateItem(Inventory.Instance.popItem(objectIndex));
         if(go != null)
         {
-            go.transform.position = transform.position + (Vector3)Forward;
+            go.transform.position = transform.position + SizeTarget * (Vector3)Forward;
 
             Item item = go.GetComponent<Item>();
             if (item != null)
@@ -94,6 +94,10 @@ public class Player : SingletonBehaviour<Player> {
                 item.thrown = true;
                 if(item.type == Item.Type.FOOD)
                     item.cooldownSensitive = true;
+
+                SizeTarget -= grownFactor;
+                _sizeTarget = SizeTarget;
+                SizeTarget = Mathf.Clamp(SizeTarget, SizeMin, SizeMax);
             }
 
             Rigidbody2D rigidbody = go.GetComponent<Rigidbody2D>();
@@ -106,20 +110,26 @@ public class Player : SingletonBehaviour<Player> {
         return false;
     }
 
+
+
 	private void OnTriggerEnter2D(Collider2D collision)
     {
-        Item item = collision.gameObject.GetComponent<Item>();
 		Ennemy ennemy = collision.gameObject.GetComponent<Ennemy> ();
-        if (item != null)
-        {
-            Rigidbody2D rigidbody = item.GetComponent<Rigidbody2D>();
-            float controlSpeed = Controls.Instance.Player().Movement.sqrMagnitude;
-            if (rigidbody != null && rigidbody.velocity.sqrMagnitude <= _speed * _speed * controlSpeed)
-            {
-                Inventory.Instance.PushFront(item);
-                Destroy(item.gameObject);
-            }
-        }
+		Item item = collision.gameObject.GetComponent<Item>();
+		if (item != null)
+		{
+			Rigidbody2D rigidbody = item.GetComponent<Rigidbody2D>();
+			float controlSpeed = Controls.Instance.Player().Movement.sqrMagnitude;
+			if (rigidbody != null && rigidbody.velocity.sqrMagnitude <=  _speed * _speed * controlSpeed)
+			{
+				Inventory.Instance.PushFront(item);
+				Destroy(item.gameObject);
+
+				SizeTarget += grownFactor;
+				_sizeTarget = SizeTarget;
+				SizeTarget = Mathf.Clamp(SizeTarget, SizeMin, SizeMax);
+			}
+		}
 
 		if (ennemy != null) {
 			if (ennemy.Stunned) {

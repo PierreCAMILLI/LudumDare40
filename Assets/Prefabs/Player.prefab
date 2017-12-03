@@ -23,8 +23,13 @@ GameObject:
   - component: {fileID: 114685561633980620}
   - component: {fileID: 114370225477992396}
   - component: {fileID: 50148876887773048}
+<<<<<<< HEAD
   - component: {fileID: 61421652744258416}
   - component: {fileID: 61132421890130422}
+=======
+  - component: {fileID: 58169278622865584}
+  - component: {fileID: 61452956826124686}
+>>>>>>> 1183a648f6d9546984b58a8d0d5dc4a9ed433d23
   m_Layer: 20
   m_Name: Player
   m_TagString: Untagged
@@ -32,15 +37,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< HEAD
 --- !u!1 &1654458617228414
+=======
+--- !u!1 &1641361585415652
+>>>>>>> 1183a648f6d9546984b58a8d0d5dc4a9ed433d23
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
+<<<<<<< HEAD
   - component: {fileID: 4249395015227748}
   - component: {fileID: 212231971952614512}
+=======
+  - component: {fileID: 4415305669417360}
+  - component: {fileID: 212853212258897746}
+>>>>>>> 1183a648f6d9546984b58a8d0d5dc4a9ed433d23
   m_Layer: 0
   m_Name: Shadow (1)
   m_TagString: Untagged
@@ -48,12 +62,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< HEAD
 --- !u!4 &4249395015227748
+=======
+--- !u!4 &4415305669417360
+>>>>>>> 1183a648f6d9546984b58a8d0d5dc4a9ed433d23
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
+<<<<<<< HEAD
   m_GameObject: {fileID: 1654458617228414}
+=======
+  m_GameObject: {fileID: 1641361585415652}
+>>>>>>> 1183a648f6d9546984b58a8d0d5dc4a9ed433d23
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.06000042, y: -0.6799998, z: -0.17460938}
   m_LocalScale: {x: 8, y: 2, z: 1}
@@ -68,10 +90,17 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1608525474682996}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+<<<<<<< HEAD
   m_LocalPosition: {x: -3.350903, y: -0.109598935, z: -0.0126953125}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4249395015227748}
+=======
+  m_LocalPosition: {x: 1.22, y: 1.53, z: -0.025390625}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_Children:
+  - {fileID: 4415305669417360}
+>>>>>>> 1183a648f6d9546984b58a8d0d5dc4a9ed433d23
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -95,8 +124,13 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+<<<<<<< HEAD
 --- !u!61 &61132421890130422
 BoxCollider2D:
+=======
+--- !u!58 &58169278622865584
+CircleCollider2D:
+>>>>>>> 1183a648f6d9546984b58a8d0d5dc4a9ed433d23
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -107,6 +141,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
+<<<<<<< HEAD
   m_Offset: {x: 0.008972645, y: -0.5114298}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,6 +156,12 @@ BoxCollider2D:
   m_Size: {x: 1.4415045, y: 0.47248006}
   m_EdgeRadius: 0
 --- !u!61 &61421652744258416
+=======
+  m_Offset: {x: -0.023223042, y: -0.1935255}
+  serializedVersion: 2
+  m_Radius: 0.54710793
+--- !u!61 &61452956826124686
+>>>>>>> 1183a648f6d9546984b58a8d0d5dc4a9ed433d23
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -132,7 +173,11 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
+<<<<<<< HEAD
   m_Offset: {x: 0, y: -0.49750012}
+=======
+  m_Offset: {x: 0, y: -0.6500322}
+>>>>>>> 1183a648f6d9546984b58a8d0d5dc4a9ed433d23
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -143,7 +188,11 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
+<<<<<<< HEAD
   m_Size: {x: 1.28, y: 0.2684542}
+=======
+  m_Size: {x: 1.28, y: 0.429958}
+>>>>>>> 1183a648f6d9546984b58a8d0d5dc4a9ed433d23
   m_EdgeRadius: 0
 --- !u!114 &114370225477992396
 MonoBehaviour:
@@ -169,17 +218,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_dontDestroyOnLoad: 0
-  _speed: 5
+  _speed: 4
   _sizeTarget: 1
   _resizeSmoothTime: 1
   _resizeVelocity: 0
+  SizeTarget: 1
+  SizeMin: 1
+  SizeMax: 4
+  grownFactor: 0.1
   _throwForce: 3
+<<<<<<< HEAD
 --- !u!212 &212231971952614512
+=======
+--- !u!212 &212853212258897746
+>>>>>>> 1183a648f6d9546984b58a8d0d5dc4a9ed433d23
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
+<<<<<<< HEAD
   m_GameObject: {fileID: 1654458617228414}
+=======
+  m_GameObject: {fileID: 1641361585415652}
+>>>>>>> 1183a648f6d9546984b58a8d0d5dc4a9ed433d23
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
