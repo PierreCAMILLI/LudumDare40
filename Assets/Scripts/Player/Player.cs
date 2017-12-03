@@ -37,7 +37,7 @@ public class Player : SingletonBehaviour<Player> {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
         UpdateMovements();
         transform.localScale = Vector3.one * _size;
 	}
