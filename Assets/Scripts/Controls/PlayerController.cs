@@ -19,11 +19,11 @@ public class PlayerController : MonoBehaviour {
             _player = GetComponent<Player>();
 
         PlayerControls controls = Controls.Instance.Player();
-
         // Movements
         _player.Velocity = controls.Movement;
-        if (controls.Movement != Vector2.zero)
-            _player.Forward = controls.Movement.normalized;
+		if (controls.Movement != Vector2.zero)
+			_player.Forward = controls.Movement.normalized;
+
 
         // Throw
         for(byte i = 0; i < controls.ThrowCount; ++i)
@@ -33,3 +33,4 @@ public class PlayerController : MonoBehaviour {
         }
 	}
 }
+
