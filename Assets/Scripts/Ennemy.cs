@@ -63,11 +63,17 @@ public class Ennemy : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+		if (_stunned) {
+			transform.position.Set(3*Mathf.Sin (Time.time * 1.0f),transform.position.y,transform.position.z);
+		}
+		else
+		{
 		Behavior();
 		Move ();
 		SpriteRenderer sprite = GetComponent<SpriteRenderer> ();
 		if (flee && !sprite.isVisible)
 			Destroy (this.gameObject);
+		}
 
 	}
 
@@ -220,6 +226,7 @@ public class Ennemy : MonoBehaviour {
     {
         if (!HasItems)
         {
+			Debug.Log ("Je suis stun");
             _stunned = true;
             StartCoroutine(StunRoutine());
         }
@@ -242,6 +249,7 @@ public class Ennemy : MonoBehaviour {
 					_items.RemoveAt (0);
 					itemToPop.transform.position = -transform.right;
 					} else if (_items.Count == 0) {
+						Debug.Log ("qemlrkj");
 						Hurt ();
 					}
 				}
@@ -284,4 +292,8 @@ public class Ennemy : MonoBehaviour {
 		}
 	}
 
+	public void died()
+	{
+		Destroy (this.gameObject);
+	}
 }
