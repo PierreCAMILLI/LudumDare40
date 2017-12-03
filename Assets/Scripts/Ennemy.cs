@@ -17,6 +17,9 @@ public class Ennemy : MonoBehaviour {
         get { return _items.Count > 0; }
     }
 
+    [SerializeField]
+    private float _dropRadius = 1f;
+
     private bool _stunned = false;
     public bool Stunned
     {
@@ -252,7 +255,7 @@ public class Ennemy : MonoBehaviour {
 				if (_items.Count != 0) {
 					GameObject itemToPop = Inventory.Instance.instanciateItem (_items [0]);
 					_items.RemoveAt (0);
-					itemToPop.transform.position = -transform.right;
+					itemToPop.transform.position = transform.position - transform.right * _dropRadius;
 					} else if (_items.Count == 0) {
 						Debug.Log ("qemlrkj");
 						Hurt ();
@@ -271,7 +274,7 @@ public class Ennemy : MonoBehaviour {
 					if (_items.Count != 0) {
 						GameObject itemToPop = Inventory.Instance.instanciateItem (_items [0]);
 						_items.RemoveAt (0);
-						itemToPop.transform.position = -transform.right;
+						itemToPop.transform.position = transform.position - transform.right * _dropRadius;
 					} else if (_items.Count == 0) {
 						Hurt ();
 					}
@@ -299,6 +302,7 @@ public class Ennemy : MonoBehaviour {
 
 	public void died()
 	{
+        --(GameManager.Instance.EnemiesCount);
 		Destroy (this.gameObject);
 	}
 }

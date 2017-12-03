@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : SingletonBehaviour<GameManager> {
 
     private byte _level = 0;
     public byte Level

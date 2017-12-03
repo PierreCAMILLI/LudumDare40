@@ -191,10 +191,11 @@ MonoBehaviour:
   _sizeTarget: 1
   _resizeSmoothTime: 1
   _resizeVelocity: 0
-  SizeTarget: 0
-  SizeMin: 1
-  SizeMax: 4
-  grownFactor: 0
+  _sizeBounds:
+    m_min: 1
+    m_max: 4
+    restrict: 0
+  grownFactor: 0.1
   _throwForce: 3
 --- !u!212 &212195695763041586
 SpriteRenderer:

@@ -19,9 +19,13 @@ public class Player : SingletonBehaviour<Player> {
     {
         get { return _size; }
     }
-    public float SizeTarget;
-    public float SizeMin = 1.0F;
-    public float SizeMax = 4.0F;
+    public float SizeTarget
+    {
+        get { return _sizeTarget; }
+        set { _sizeTarget = value; }
+    }
+    [SerializeField]
+    public Bounds1D _sizeBounds;
     public float grownFactor;
 
     [Header("Throw")]
@@ -118,10 +122,8 @@ public class Player : SingletonBehaviour<Player> {
                 item.thrown = true;
                 if(item.type == Item.Type.FOOD)
                     item.cooldownSensitive = true;
-
-                SizeTarget -= grownFactor;
-                _sizeTarget = SizeTarget;
-                SizeTarget = Mathf.Clamp(SizeTarget, SizeMin, SizeMax);
+                
+                SizeTarget = Mathf.Clamp(SizeTarget - grownFactor, _sizeBounds.Min, _sizeBounds.Max);
             }
 
             Rigidbody2D rigidbody = go.GetComponent<Rigidbody2D>();
@@ -138,7 +140,6 @@ public class Player : SingletonBehaviour<Player> {
 
 	private void OnTriggerEnter2D(Collider2D collision)
     {
-		Ennemy ennemy = collision.gameObject.GetComponent<Ennemy> ();
 		Item item = collision.gameObject.GetComponent<Item>();
 		if (item != null)
 		{
@@ -151,13 +152,12 @@ public class Player : SingletonBehaviour<Player> {
 				Inventory.Instance.PushFront(item);
 				Destroy(item.gameObject);
 
-				SizeTarget += grownFactor;
-				_sizeTarget = SizeTarget;
-				SizeTarget = Mathf.Clamp(SizeTarget, SizeMin, SizeMax);
-			}
+                SizeTarget = Mathf.Clamp(_sizeTarget + grownFactor, _sizeBounds.Min, _sizeBounds.Max);
+            }
 		}
 
-		if (ennemy != null) {
+        Ennemy ennemy = collision.gameObject.GetComponent<Ennemy>();
+        if (ennemy != null) {
 			if (ennemy.Stunned) {
 				ennemy.died ();
 				switch (ennemy.Ennemytype) {
