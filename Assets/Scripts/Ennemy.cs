@@ -7,6 +7,7 @@ public class Ennemy : MonoBehaviour {
 	public enum Ennemies {peacefulAnimal,animal,hero,goblin};
 	public Ennemies Ennemytype;
 
+
 	List<Item.Element> _items = new List<Item.Element>();
 	[Range(0,10)]
 	public int InventorySize = 0;
