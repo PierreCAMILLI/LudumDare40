@@ -111,27 +111,31 @@ public class Player : SingletonBehaviour<Player> {
 
     public bool Throw(byte objectIndex = 0)
     {
-        GameObject go = Inventory.Instance.instanciateItem(Inventory.Instance.popItem(objectIndex));
-        if(go != null)
+        RaycastHit2D oclusion = Physics2D.CircleCast(transform.position + SizeTarget * (Vector3)Forward, 0.5F, Forward, 0.0F, 1 << LayerMask.NameToLayer("Map"));
+        if(!oclusion)
         {
-            go.transform.position = transform.position + SizeTarget * (Vector3)Forward;
-
-            Item item = go.GetComponent<Item>();
-            if (item != null)
+            GameObject go = Inventory.Instance.instanciateItem(Inventory.Instance.popItem(objectIndex));
+            if(go != null)
             {
-                item.thrown = true;
-                if(item.type == Item.Type.FOOD)
-                    item.cooldownSensitive = true;
+                go.transform.position = transform.position + SizeTarget * (Vector3)Forward;
+
+                Item item = go.GetComponent<Item>();
+                if (item != null)
+                {
+                    item.thrown = true;
+                    if(item.type == Item.Type.FOOD)
+                        item.cooldownSensitive = true;
                 
-                SizeTarget = Mathf.Clamp(SizeTarget - grownFactor, _sizeBounds.Min, _sizeBounds.Max);
-            }
+                    SizeTarget = Mathf.Clamp(SizeTarget - grownFactor, _sizeBounds.Min, _sizeBounds.Max);
+                }
 
-            Rigidbody2D rigidbody = go.GetComponent<Rigidbody2D>();
-            if (rigidbody != null)
-            {
-                rigidbody.AddForce((Forward) * _throwForce + (Velocity * _speed), ForceMode2D.Impulse);
+                Rigidbody2D rigidbody = go.GetComponent<Rigidbody2D>();
+                if (rigidbody != null)
+                {
+                    rigidbody.AddForce((Forward) * _throwForce + (Velocity * _speed), ForceMode2D.Impulse);
+                }
+                return true;
             }
-            return true;
         }
         return false;
     }
