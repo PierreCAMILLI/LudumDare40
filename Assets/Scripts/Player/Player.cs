@@ -106,27 +106,6 @@ public class Player : SingletonBehaviour<Player> {
         return false;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Ennemy enemy = collision.gameObject.GetComponent<Ennemy>();
-        if(enemy != null)
-        {
-            enemy.Hurt();
-        }
-
-        Item item = collision.gameObject.GetComponent<Item>();
-        if (item != null)
-        {
-            Rigidbody2D rigidbody = item.GetComponent<Rigidbody2D>();
-            float controlSpeed = Controls.Instance.Player().Movement.sqrMagnitude;
-            if (rigidbody != null && rigidbody.velocity.sqrMagnitude <=  _speed * _speed * controlSpeed)
-            {
-                Inventory.Instance.PushFront(item);
-                Destroy(item.gameObject);
-            }
-        }
-    }
-
 	private void OnTriggerEnter2D(Collider2D collision)
     {
         Item item = collision.gameObject.GetComponent<Item>();
@@ -143,7 +122,38 @@ public class Player : SingletonBehaviour<Player> {
         }
 
 		if (ennemy != null) {
-
+			if (ennemy.Stunned) {
+				ennemy.died ();
+				switch (ennemy.Ennemytype) {
+				case Ennemy.Ennemies.animal:
+					Inventory.Instance.PushFrontElement (Item.Element.MEAT);
+					Inventory.Instance.PushFrontElement (Item.Element.BONE);
+					break;
+				case Ennemy.Ennemies.peacefulAnimal:
+					Inventory.Instance.PushFrontElement (Item.Element.MEAT);
+					break;
+				case Ennemy.Ennemies.goblin:
+					Inventory.Instance.PushFrontElement (Item.Element.MEAT);
+					Inventory.Instance.PushFrontElement (Item.Element.DIAMOND);
+					Inventory.Instance.PushFrontElement (Item.Element.COIN);
+					break;
+				case Ennemy.Ennemies.hero:
+					Inventory.Instance.PushFrontElement (Item.Element.MEAT);
+					Inventory.Instance.PushFrontElement (Item.Element.APPLE);
+					Inventory.Instance.PushFrontElement (Item.Element.SWORD);
+					Inventory.Instance.PushFrontElement (Item.Element.DIAMOND);
+					break;
+				default:
+					break;
+				}
+			}
+			else {
+				//TODO Frame d'invulnérabilité et perte de 6 objets.
+				int magnitude = 6;
+				Vector3 force = transform.position - collision.transform.position;
+				force.Normalize ();
+				GetComponent<Rigidbody2D> ().AddForce (force * magnitude,ForceMode2D.Impulse);
+			}
 		}
     }
 }
