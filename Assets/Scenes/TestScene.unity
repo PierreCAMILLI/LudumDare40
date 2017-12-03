@@ -571,8 +571,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1360682066}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 278, y: 156.5, z: 0}
-  m_LocalScale: {x: 0.3475, y: 0.3475, z: 0.3475}
+  m_LocalPosition: {x: 451, y: 257.5, z: 0}
+  m_LocalScale: {x: 0.56375, y: 0.56375, z: 0.56375}
   m_Children:
   - {fileID: 582088336}
   m_Father: {fileID: 0}
@@ -679,6 +679,8 @@ MonoBehaviour:
   _velocity: {x: 0, y: 0}
   _smoothTime: 0.2
   _zoomCoefficient: 5
+  _zoomSmoothTime: 1
+  _zoomVelocity: 0
 --- !u!1001 &1534270633
 Prefab:
   m_ObjectHideFlags: 0
@@ -765,6 +767,12 @@ Prefab:
       propertyPath: _speed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 212931475558577106, guid: e024137e73bdf9345bd63722467b7205,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 130cd83600688c049b126f443e650b9b,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e024137e73bdf9345bd63722467b7205, type: 2}
   m_IsPrefabParent: 0
@@ -775,6 +783,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114598917433423610, guid: aa1280e67870d7c4893d0ffaa5a3bc97,
+        type: 2}
+      propertyPath: _players.Array.data[0]._throwAlternative.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4593626380381478, guid: aa1280e67870d7c4893d0ffaa5a3bc97, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -806,6 +819,21 @@ Prefab:
     - target: {fileID: 4593626380381478, guid: aa1280e67870d7c4893d0ffaa5a3bc97, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114598917433423610, guid: aa1280e67870d7c4893d0ffaa5a3bc97,
+        type: 2}
+      propertyPath: _players.Array.data[0]._throwAlternative.Array.data[0]
+      value: 257
+      objectReference: {fileID: 0}
+    - target: {fileID: 114598917433423610, guid: aa1280e67870d7c4893d0ffaa5a3bc97,
+        type: 2}
+      propertyPath: _players.Array.data[0]._throwAlternative.Array.data[1]
+      value: 258
+      objectReference: {fileID: 0}
+    - target: {fileID: 114598917433423610, guid: aa1280e67870d7c4893d0ffaa5a3bc97,
+        type: 2}
+      propertyPath: _players.Array.data[0]._throwAlternative.Array.data[2]
+      value: 259
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aa1280e67870d7c4893d0ffaa5a3bc97, type: 2}

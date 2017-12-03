@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,12 @@ public class Controls : SingletonBehaviour<Controls> {
         return _players[playerIndex];
     }
 
+    private void OnValidate()
+    {
+        foreach (PlayerControls player in _players)
+            player.OnValidate();
+    }
+
 }
 
 [System.Serializable]
@@ -23,6 +30,8 @@ public class PlayerControls
     string _verticalAxis = "Vertical";
     [SerializeField]
     KeyCode[] _throw;
+    [SerializeField]
+    KeyCode[] _throwAlternative;
     [SerializeField]
     KeyCode _melee;
 
@@ -44,7 +53,7 @@ public class PlayerControls
 
     public bool Throw(byte index)
     {
-        return Input.GetKeyDown(_throw[index]);
+        return Input.GetKeyDown(_throw[index]) || Input.GetKeyDown(_throwAlternative[index]);
     }
 
     public int ThrowCount
@@ -57,4 +66,12 @@ public class PlayerControls
         get { return Input.GetKeyDown(_melee); }
     }
     #endregion
+
+    public void OnValidate()
+    {
+        if(_throwAlternative.Length != _throw.Length)
+        {
+            Array.Resize(ref _throwAlternative, _throw.Length);
+        }
+    }
 }
