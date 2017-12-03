@@ -38,12 +38,12 @@ public class PlayerControls
     #region Getter
     public float Horizontal
     {
-        get { return Input.GetAxis(_horizontalAxis); }
+        get { return Input.GetAxisRaw(_horizontalAxis); }
     }
 
     public float Vertical
     {
-        get { return Input.GetAxis(_verticalAxis); }
+        get { return Input.GetAxisRaw(_verticalAxis); }
     }
 
     public Vector2 Movement

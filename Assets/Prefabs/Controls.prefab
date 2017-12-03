@@ -56,4 +56,5 @@ MonoBehaviour:
   - _horizontalAxis: Horizontal
     _verticalAxis: Vertical
     _throw: 60010000610100005f010000
+    _throwAlternative: 690000006f00000070000000
     _melee: 350
