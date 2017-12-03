@@ -823,17 +823,17 @@ Prefab:
     - target: {fileID: 114598917433423610, guid: aa1280e67870d7c4893d0ffaa5a3bc97,
         type: 2}
       propertyPath: _players.Array.data[0]._throwAlternative.Array.data[0]
-      value: 257
+      value: 105
       objectReference: {fileID: 0}
     - target: {fileID: 114598917433423610, guid: aa1280e67870d7c4893d0ffaa5a3bc97,
         type: 2}
       propertyPath: _players.Array.data[0]._throwAlternative.Array.data[1]
-      value: 258
+      value: 111
       objectReference: {fileID: 0}
     - target: {fileID: 114598917433423610, guid: aa1280e67870d7c4893d0ffaa5a3bc97,
         type: 2}
       propertyPath: _players.Array.data[0]._throwAlternative.Array.data[2]
-      value: 259
+      value: 112
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aa1280e67870d7c4893d0ffaa5a3bc97, type: 2}
