@@ -176,9 +176,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.01545161, y: -0.24722427}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.5618064
 --- !u!4 &840892926 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4503708702610882, guid: e024137e73bdf9345bd63722467b7205,
@@ -571,8 +571,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1360682066}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 451, y: 257.5, z: 0}
-  m_LocalScale: {x: 0.56375, y: 0.56375, z: 0.56375}
+  m_LocalPosition: {x: 278, y: 156.5, z: 0}
+  m_LocalScale: {x: 0.3475, y: 0.3475, z: 0.3475}
   m_Children:
   - {fileID: 582088336}
   m_Father: {fileID: 0}
@@ -720,6 +720,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1908055646311396, guid: a2c506f3646765b438ce2070c14bde83, type: 2}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a2c506f3646765b438ce2070c14bde83, type: 2}
   m_IsPrefabParent: 0
@@ -732,11 +736,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4503708702610882, guid: e024137e73bdf9345bd63722467b7205, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.3824682
+      value: 1.22
       objectReference: {fileID: 0}
     - target: {fileID: 4503708702610882, guid: e024137e73bdf9345bd63722467b7205, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.5247826
+      value: 1.53
       objectReference: {fileID: 0}
     - target: {fileID: 4503708702610882, guid: e024137e73bdf9345bd63722467b7205, type: 2}
       propertyPath: m_LocalPosition.z

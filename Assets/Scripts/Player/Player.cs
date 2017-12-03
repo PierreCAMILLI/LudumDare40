@@ -127,9 +127,10 @@ public class Player : SingletonBehaviour<Player> {
         }
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+	private void OnTriggerEnter2D(Collider2D collision)
     {
         Item item = collision.gameObject.GetComponent<Item>();
+		Ennemy ennemy = collision.gameObject.GetComponent<Ennemy> ();
         if (item != null)
         {
             Rigidbody2D rigidbody = item.GetComponent<Rigidbody2D>();
@@ -140,5 +141,9 @@ public class Player : SingletonBehaviour<Player> {
                 Destroy(item.gameObject);
             }
         }
+
+		if (ennemy != null) {
+
+		}
     }
 }
