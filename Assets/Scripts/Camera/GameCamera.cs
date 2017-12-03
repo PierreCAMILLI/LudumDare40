@@ -23,10 +23,8 @@ public class GameCamera : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
         UpdateFollowing();
-        
-        
 	}
 
     void UpdateFollowing()
@@ -47,7 +45,7 @@ public class GameCamera : MonoBehaviour {
         Player player = _followingObject.GetComponent<Player>();
         if(player != null)
         {
-            Camera.main.orthographicSize = _zoomCoefficient * player.Size;
+            Camera.main.orthographicSize = _zoomCoefficient * player.SizeTarget;
         }
 
     }

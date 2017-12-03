@@ -7,13 +7,24 @@ public class Player : SingletonBehaviour<Player> {
     [SerializeField]
     private float _speed = 1f;
 
+    [Header("Resize")]
     [SerializeField]
+    private float _sizeTarget = 1f;
+    [SerializeField]
+    private float _resizeTime = 1f;
+    [SerializeField]
+    private float _resizeVelocity;
     private float _size = 1f;
     public float Size
     {
         get { return _size; }
     }
+    public float SizeTarget
+    {
+        get { return _sizeTarget; }
+    }
 
+    [Header("Throw")]
     [SerializeField]
     private float _throwForce = 3f;
 
@@ -40,6 +51,7 @@ public class Player : SingletonBehaviour<Player> {
 	void Update () {
         UpdateMovements();
         transform.localScale = Vector3.one * _size;
+        _size = Mathf.SmoothDamp(_size, _sizeTarget, ref _resizeVelocity, _resizeTime, Mathf.Infinity, Time.deltaTime);
 	}
 
     void UpdateMovements()
