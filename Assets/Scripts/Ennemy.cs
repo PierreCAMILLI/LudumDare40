@@ -45,12 +45,20 @@ public class Ennemy : MonoBehaviour {
 	public int MoveSpeed = 4;
 	public int RotationSpeed = 2;
 	private Transform targetMovement;
-	// Use this for initialization
-	void Start () 
+
+    // idle mode relative
+    Vector3 idleTarget;
+    float idleAngle;
+    float idleCooldown = 0.0F;
+
+
+    // Use this for initialization
+    void Start () 
 	{
 		StartCoroutine ("FindTargetsWithDelay", .2f);
-
-	}
+        idleTarget = transform.position;
+        idleAngle = 0.0F;
+    }
 	
 	// Update is called once per frame
 	void Update () 
@@ -71,11 +79,46 @@ public class Ennemy : MonoBehaviour {
 		}
 		if (targetMovement != null && !flee)
 			moveToTarget (targetMovement);
+        else // idle state (wondering randomely)
+        {
+            float deltaAngle = 40.0F * MoveSpeed * Time.deltaTime;
+            if (Vector3.Distance(transform.position, idleTarget) <= 0.01F)
+            {
+                if (idleCooldown <= 0.0F)
+                {
+                    idleCooldown = Random.Range(1.0F, 2.0F);
+
+                    Vector3 delta = new Vector3(Random.Range(-1.0F, 1.0F), Random.Range(-1.0F, 1.0F), 0) * 0.5F;
+                    delta.Normalize();
+                    idleTarget = transform.position + delta;
+
+                    idleAngle = Vector3.SignedAngle(transform.right, idleTarget - transform.position, new Vector3(0, 0, 1));
+                }
+                else idleCooldown -= Time.deltaTime;
+            }
+            else if (Mathf.Abs(idleAngle) >= deltaAngle)
+            {
+                if(idleAngle >= 0.0F)
+                {
+                    transform.Rotate(new Vector3(0, 0, 1), deltaAngle);
+                    idleAngle -= deltaAngle;
+                }
+                else
+                {
+                    transform.Rotate(new Vector3(0, 0, 1), -deltaAngle);
+                    idleAngle += deltaAngle;
+                }
+            }
+            else
+            {
+                Vector3 direction = idleTarget - transform.position;
+                transform.position += direction.normalized * Time.deltaTime * MoveSpeed/2;
+            }
+        }
 	}
 
 	void moveToTarget (Transform targetPosition)
 	{
-		
 		transform.right = targetPosition.position - transform.position;
 		transform.position += transform.right * Time.deltaTime * MoveSpeed;
 	}
