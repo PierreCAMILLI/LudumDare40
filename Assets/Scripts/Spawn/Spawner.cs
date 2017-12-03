@@ -7,7 +7,13 @@ public class Spawner : MonoBehaviour {
 
     private static HashSet<Spawner> _spawners;
     public static IList<Spawner> Spawners {
-        get { return _spawners.ToArray(); }
+        get { return _spawners != null ? _spawners.ToArray() : null; }
+    }
+
+    private Ennemy _lastEnemySpawned = null;
+    public Ennemy LastEnemySpawned
+    {
+        get { return _lastEnemySpawned; }
     }
 
     private void Awake()
@@ -34,7 +40,9 @@ public class Spawner : MonoBehaviour {
 
     public GameObject Spawn(GameObject prefab)
     {
-        return Instantiate(prefab, transform.position, Quaternion.identity, null);
+        GameObject go = Instantiate(prefab, transform.position, Quaternion.identity, null);
+        _lastEnemySpawned = go.GetComponent<Ennemy>();
+        return go;
     }
 
 }
