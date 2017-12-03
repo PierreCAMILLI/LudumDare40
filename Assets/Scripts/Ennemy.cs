@@ -17,6 +17,9 @@ public class Ennemy : MonoBehaviour {
         get { return _items.Count > 0; }
     }
 
+    [SerializeField]
+    private float _dropRadius = 1f;
+
     private bool _stunned = false;
     public bool Stunned
     {
@@ -71,8 +74,8 @@ public class Ennemy : MonoBehaviour {
 		Behavior();
 		Move ();
 		SpriteRenderer sprite = GetComponent<SpriteRenderer> ();
-		if (flee && !sprite.isVisible)
-			Destroy (this.gameObject);
+            if (flee && !sprite.isVisible)
+                died();
 		}
 
 	}
@@ -98,11 +101,11 @@ public class Ennemy : MonoBehaviour {
                     delta.Normalize();
                     idleTarget = transform.position + delta;
 
-                    idleAngle = Vector3.SignedAngle(transform.right, idleTarget - transform.position, new Vector3(0, 0, 1));
+                    //idleAngle = Vector3.SignedAngle(transform.right, idleTarget - transform.position, new Vector3(0, 0, 1));
                 }
                 else idleCooldown -= Time.deltaTime;
             }
-            else if (Mathf.Abs(idleAngle) >= deltaAngle)
+           /* else if (Mathf.Abs(idleAngle) >= deltaAngle)
             {
                 if(idleAngle >= 0.0F)
                 {
@@ -114,18 +117,23 @@ public class Ennemy : MonoBehaviour {
                     transform.Rotate(new Vector3(0, 0, 1), -deltaAngle);
                     idleAngle += deltaAngle;
                 }
-            }
+            }*/
             else
             {
                 Vector3 direction = idleTarget - transform.position;
                 transform.position += direction.normalized * Time.deltaTime * MoveSpeed/2;
+				if (direction.normalized.x >= 0)
+					GetComponent<SpriteRenderer> ().flipX = false;
+				else
+					GetComponent<SpriteRenderer> ().flipX = true;
+
             }
         }
 	}
 
 	void moveToTarget (Transform targetPosition)
 	{
-		transform.right = targetPosition.position - transform.position;
+		//transform.right = targetPosition.position - transform.position;
 		transform.position += transform.right * Time.deltaTime * MoveSpeed;
 	}
 
@@ -247,7 +255,7 @@ public class Ennemy : MonoBehaviour {
 				if (_items.Count != 0) {
 					GameObject itemToPop = Inventory.Instance.instanciateItem (_items [0]);
 					_items.RemoveAt (0);
-					itemToPop.transform.position = -transform.right;
+					itemToPop.transform.position = transform.position - transform.right * _dropRadius;
 					} else if (_items.Count == 0) {
 						Debug.Log ("qemlrkj");
 						Hurt ();
@@ -266,8 +274,9 @@ public class Ennemy : MonoBehaviour {
 					if (_items.Count != 0) {
 						GameObject itemToPop = Inventory.Instance.instanciateItem (_items [0]);
 						_items.RemoveAt (0);
-						itemToPop.transform.position = -transform.right;
+						itemToPop.transform.position = transform.position - transform.right * _dropRadius;
 					} else if (_items.Count == 0) {
+					Debug.Log ("lmsfkdjlkmdfglodfgjmlkfdgnmlfd");
 						Hurt ();
 					}
 				}
@@ -294,6 +303,7 @@ public class Ennemy : MonoBehaviour {
 
 	public void died()
 	{
+        --(GameManager.Instance.EnemiesCount);
 		Destroy (this.gameObject);
 	}
 }

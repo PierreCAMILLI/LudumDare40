@@ -19,9 +19,13 @@ public class Player : SingletonBehaviour<Player> {
     {
         get { return _size; }
     }
-    public float SizeTarget;
-    public float SizeMin = 1.0F;
-    public float SizeMax = 4.0F;
+    public float SizeTarget
+    {
+        get { return _sizeTarget; }
+        set { _sizeTarget = value; }
+    }
+    [SerializeField]
+    public Bounds1D _sizeBounds;
     public float grownFactor;
 
     [Header("Throw")]
@@ -42,6 +46,8 @@ public class Player : SingletonBehaviour<Player> {
         set { _forward = value; }
     }
 
+
+
 #region Force
     private Vector2 _force;
     public Vector2 Force
@@ -61,6 +67,15 @@ public class Player : SingletonBehaviour<Player> {
 	
 	// Update is called once per frame
 	void LateUpdate () {
+		Animator animationPlayer = GetComponent<Animator>();
+		if (Velocity != Vector2.zero) {
+			if (Velocity.x >= 0)
+				GetComponent<SpriteRenderer> ().flipX = true;
+			else 
+				GetComponent<SpriteRenderer> ().flipX = false;
+			animationPlayer.SetBool ("walking", true);
+		} else
+			animationPlayer.SetBool ("walking", false);
         UpdateMovements();
         transform.localScale = Vector3.one * _size;
         _size = Mathf.SmoothDamp(_size, _sizeTarget, ref _resizeVelocity, _resizeSmoothTime, Mathf.Infinity, Time.deltaTime);
@@ -96,29 +111,31 @@ public class Player : SingletonBehaviour<Player> {
 
     public bool Throw(byte objectIndex = 0)
     {
-        GameObject go = Inventory.Instance.instanciateItem(Inventory.Instance.popItem(objectIndex));
-        if(go != null)
+        RaycastHit2D oclusion = Physics2D.CircleCast(transform.position + SizeTarget * (Vector3)Forward, 0.5F, Forward, 0.0F, 1 << LayerMask.NameToLayer("Map"));
+        if(!oclusion)
         {
-            go.transform.position = transform.position + SizeTarget * (Vector3)Forward;
-
-            Item item = go.GetComponent<Item>();
-            if (item != null)
+            GameObject go = Inventory.Instance.instanciateItem(Inventory.Instance.popItem(objectIndex));
+            if(go != null)
             {
-                item.thrown = true;
-                if(item.type == Item.Type.FOOD)
-                    item.cooldownSensitive = true;
+                go.transform.position = transform.position + SizeTarget * (Vector3)Forward;
 
-                SizeTarget -= grownFactor;
-                _sizeTarget = SizeTarget;
-                SizeTarget = Mathf.Clamp(SizeTarget, SizeMin, SizeMax);
-            }
+                Item item = go.GetComponent<Item>();
+                if (item != null)
+                {
+                    item.thrown = true;
+                    if(item.type == Item.Type.FOOD)
+                        item.cooldownSensitive = true;
+                
+                    SizeTarget = Mathf.Clamp(SizeTarget - grownFactor, _sizeBounds.Min, _sizeBounds.Max);
+                }
 
-            Rigidbody2D rigidbody = go.GetComponent<Rigidbody2D>();
-            if (rigidbody != null)
-            {
-                rigidbody.AddForce((Forward) * _throwForce + (Velocity * _speed), ForceMode2D.Impulse);
+                Rigidbody2D rigidbody = go.GetComponent<Rigidbody2D>();
+                if (rigidbody != null)
+                {
+                    rigidbody.AddForce((Forward) * _throwForce + (Velocity * _speed), ForceMode2D.Impulse);
+                }
+                return true;
             }
-            return true;
         }
         return false;
     }
@@ -127,7 +144,6 @@ public class Player : SingletonBehaviour<Player> {
 
 	private void OnTriggerEnter2D(Collider2D collision)
     {
-		Ennemy ennemy = collision.gameObject.GetComponent<Ennemy> ();
 		Item item = collision.gameObject.GetComponent<Item>();
 		if (item != null)
 		{
@@ -135,16 +151,17 @@ public class Player : SingletonBehaviour<Player> {
 			float controlSpeed = Controls.Instance.Player().Movement.sqrMagnitude;
 			if (rigidbody != null && rigidbody.velocity.sqrMagnitude <=  _speed * _speed * controlSpeed)
 			{
+				Animator animationPlayer = GetComponent<Animator>();
+				animationPlayer.SetTrigger("melee");
 				Inventory.Instance.PushFront(item);
 				Destroy(item.gameObject);
 
-				SizeTarget += grownFactor;
-				_sizeTarget = SizeTarget;
-				SizeTarget = Mathf.Clamp(SizeTarget, SizeMin, SizeMax);
-			}
+                SizeTarget = Mathf.Clamp(_sizeTarget + grownFactor, _sizeBounds.Min, _sizeBounds.Max);
+            }
 		}
 
-		if (ennemy != null) {
+        Ennemy ennemy = collision.gameObject.GetComponent<Ennemy>();
+        if (ennemy != null) {
 			if (ennemy.Stunned) {
 				ennemy.died ();
 				switch (ennemy.Ennemytype) {
@@ -171,7 +188,9 @@ public class Player : SingletonBehaviour<Player> {
 				}
 			}
 			else {
+				Animator animationPlayer = GetComponent<Animator>();
 				//TODO Frame d'invulnérabilité et perte de 6 objets.
+				animationPlayer.SetTrigger("Hurt");
 				int magnitude = 6;
 				Vector3 force = transform.position - collision.transform.position;
 				force.Normalize ();
