@@ -42,6 +42,8 @@ public class Player : SingletonBehaviour<Player> {
         set { _forward = value; }
     }
 
+
+
 #region Force
     private Vector2 _force;
     public Vector2 Force
@@ -61,6 +63,15 @@ public class Player : SingletonBehaviour<Player> {
 	
 	// Update is called once per frame
 	void LateUpdate () {
+		Animator animationPlayer = GetComponent<Animator>();
+		if (Velocity != Vector2.zero) {
+			if (Velocity.x >= 0)
+				GetComponent<SpriteRenderer> ().flipX = true;
+			else 
+				GetComponent<SpriteRenderer> ().flipX = false;
+			animationPlayer.SetBool ("walking", true);
+		} else
+			animationPlayer.SetBool ("walking", false);
         UpdateMovements();
         transform.localScale = Vector3.one * _size;
         _size = Mathf.SmoothDamp(_size, _sizeTarget, ref _resizeVelocity, _resizeSmoothTime, Mathf.Infinity, Time.deltaTime);
@@ -135,6 +146,8 @@ public class Player : SingletonBehaviour<Player> {
 			float controlSpeed = Controls.Instance.Player().Movement.sqrMagnitude;
 			if (rigidbody != null && rigidbody.velocity.sqrMagnitude <=  _speed * _speed * controlSpeed)
 			{
+				Animator animationPlayer = GetComponent<Animator>();
+				animationPlayer.SetTrigger("melee");
 				Inventory.Instance.PushFront(item);
 				Destroy(item.gameObject);
 
@@ -171,7 +184,9 @@ public class Player : SingletonBehaviour<Player> {
 				}
 			}
 			else {
+				Animator animationPlayer = GetComponent<Animator>();
 				//TODO Frame d'invulnérabilité et perte de 6 objets.
+				animationPlayer.SetTrigger("Hurt");
 				int magnitude = 6;
 				Vector3 force = transform.position - collision.transform.position;
 				force.Normalize ();
