@@ -6,8 +6,8 @@ using UnityEngine;
 public class Spawner : MonoBehaviour {
 
     private static HashSet<Spawner> _spawners;
-    public IList<Spawner> Spawners {
-        get { return _spawners.ToList(); }
+    public static IList<Spawner> Spawners {
+        get { return _spawners.ToArray(); }
     }
 
     private void Awake()
