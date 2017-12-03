@@ -42,9 +42,21 @@ public class Player : SingletonBehaviour<Player> {
         set { _forward = value; }
     }
 
-	// Use this for initialization
-	void Start () {
+#region Force
+    private Vector2 _force;
+    public Vector2 Force
+    {
+        get { return _force; }
+        set { _force = value; }
+    }
+
+    private Vector2 _forceVelocity;
+#endregion
+
+    // Use this for initialization
+    void Start () {
         _forward = Vector2.down;
+        _force = Vector2.zero;
 	}
 	
 	// Update is called once per frame
@@ -56,7 +68,8 @@ public class Player : SingletonBehaviour<Player> {
 
     void UpdateMovements()
     {
-        transform.Translate(_velocity * _speed * Time.deltaTime);
+        transform.Translate(((_velocity * _speed) + _force) * Time.deltaTime);
+        _force = Vector2.SmoothDamp(_force, Vector2.zero, ref _forceVelocity, 1f, Mathf.Infinity, Time.deltaTime);
         _velocity = Vector2.zero;
     }
 
