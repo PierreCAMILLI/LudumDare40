@@ -86,7 +86,7 @@ public class Player : SingletonBehaviour<Player> {
         GameObject go = Inventory.Instance.instanciateItem(Inventory.Instance.popItem(objectIndex));
         if(go != null)
         {
-            go.transform.position = transform.position + (Vector3)Forward;
+            go.transform.position = transform.position + SizeTarget * (Vector3)Forward;
 
             Item item = go.GetComponent<Item>();
             if (item != null)

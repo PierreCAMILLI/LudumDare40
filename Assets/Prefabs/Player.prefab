@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_dontDestroyOnLoad: 0
-  _speed: 1
+  _speed: 4
   _sizeTarget: 1
   _resizeSmoothTime: 1
   _resizeVelocity: 0
