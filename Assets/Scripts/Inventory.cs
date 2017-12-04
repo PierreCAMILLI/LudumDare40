@@ -117,6 +117,8 @@ public class Inventory : SingletonBehaviour<Inventory>
         return item;
     }
 
+
+
     public Item.Element[] getSlots()
     {
         return slots;

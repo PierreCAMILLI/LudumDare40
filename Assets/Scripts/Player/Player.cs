@@ -46,7 +46,9 @@ public class Player : SingletonBehaviour<Player> {
         set { _forward = value; }
     }
 
-
+	[Range(0,5)]
+	public int invulnerabilityTime = 3;
+	public bool _invulnerable = false;
 
 #region Force
     private Vector2 _force;
@@ -140,7 +142,11 @@ public class Player : SingletonBehaviour<Player> {
         return false;
     }
 
-
+	IEnumerator StunRoutine()
+	{
+		yield return new WaitForSeconds(invulnerabilityTime);
+		_invulnerable = false;
+	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -188,13 +194,23 @@ public class Player : SingletonBehaviour<Player> {
 				}
 			}
 			else {
-				Animator animationPlayer = GetComponent<Animator>();
-				//TODO Frame d'invulnérabilité et perte de 6 objets.
-				animationPlayer.SetTrigger("Hurt");
-				int magnitude = 6;
-				Vector3 force = transform.position - collision.transform.position;
-				force.Normalize ();
-				GetComponent<Rigidbody2D> ().AddForce (force * magnitude,ForceMode2D.Impulse);
+				if (!_invulnerable) {	
+					Animator animationPlayer = GetComponent<Animator> ();
+					animationPlayer.SetTrigger ("Hurt");
+					int magnitude = 6;
+					Vector3 force = transform.position - collision.transform.position;
+					force.Normalize ();
+					GetComponent<Rigidbody2D> ().AddForce (force * magnitude, ForceMode2D.Impulse);
+					//TODO Frame d'invulnérabilité et perte de 6 objets.
+					Inventory.Instance.popItem (0);
+					Inventory.Instance.popItem (1);
+					Inventory.Instance.popItem (2);
+					Inventory.Instance.popItem (0);
+					Inventory.Instance.popItem (1);
+					Inventory.Instance.popItem (2);
+					_invulnerable = true;
+					StartCoroutine(InvulnerableRoutine());
+				}
 			}
 		}
     }
