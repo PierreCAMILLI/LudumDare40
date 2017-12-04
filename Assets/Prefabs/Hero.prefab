@@ -64,7 +64,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &61205724167676714
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -158,7 +158,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1064960
   MoveSpeed: 1
-  RotationSpeed: 2
 --- !u!212 &212555806485202704
 SpriteRenderer:
   m_ObjectHideFlags: 1

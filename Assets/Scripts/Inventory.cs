@@ -138,7 +138,7 @@ public class Inventory : SingletonBehaviour<Inventory>
 
     public void resetInventory()
     {
-        int remaning = 13;
+        int remaning = 8;
         inventory.RemoveRange(remaning, inventory.Count - remaning);
     }
 		
