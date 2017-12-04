@@ -7,11 +7,16 @@ public class InventoryUI : SingletonBehaviour<InventoryUI> {
 
     [SerializeField]
     Image[] _slots, _inventory;
+    
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    private GUIStyle TextStyle = new GUIStyle();
+
+    // Use this for initialization
+    void Start ()
+    {
+        TextStyle.normal.textColor = Color.black;
+        TextStyle.fontSize = 40;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -49,5 +54,14 @@ public class InventoryUI : SingletonBehaviour<InventoryUI> {
                 _inventory[i].color = Color.clear;
             }
         }
+
+        
+        
+    }
+
+    void OnGUI()
+    {
+        GUI.Label(new Rect(0, 0, 100, 50), "Score : " + Inventory.Instance.Score(), TextStyle);
+        GUI.Label(new Rect(Screen.width * 1450 / 1600, Screen.height * 490 / 900, 100, 50), "+" + Mathf.Max(0, Inventory.Instance.ItemCount() - 6), TextStyle);
     }
 }
