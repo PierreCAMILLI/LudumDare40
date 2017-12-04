@@ -14,7 +14,7 @@ public class InventoryUI : SingletonBehaviour<InventoryUI> {
     // Use this for initialization
     void Start ()
     {
-        TextStyle.normal.textColor = Color.black;
+        TextStyle.normal.textColor = new Color(0, 0.9F, 0.1F);
         TextStyle.fontSize = 40;
     }
 	
@@ -62,6 +62,6 @@ public class InventoryUI : SingletonBehaviour<InventoryUI> {
     void OnGUI()
     {
         GUI.Label(new Rect(0, 0, 100, 50), "Score : " + Inventory.Instance.Score(), TextStyle);
-        GUI.Label(new Rect(Screen.width * 1450 / 1600, Screen.height * 490 / 900, 100, 50), "+" + Mathf.Max(0, Inventory.Instance.ItemCount() - 6), TextStyle);
+        GUI.Label(new Rect(Screen.width * 1450 / 1600, Screen.height * 700 / 900, 100, 50), "+" + Mathf.Max(0, Inventory.Instance.ItemCount() - 6), TextStyle);
     }
 }
