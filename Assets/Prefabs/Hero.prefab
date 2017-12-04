@@ -25,10 +25,8 @@ GameObject:
   - component: {fileID: 95336164024582802}
   - component: {fileID: 61205724167676714}
   - component: {fileID: 50924757339912710}
+  - component: {fileID: 114711151273119116}
   - component: {fileID: 82237234203202654}
-  - component: {fileID: 114261466785189508}
-  - component: {fileID: 82071622338585156}
-  - component: {fileID: 114066289702281038}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Untagged
@@ -119,86 +117,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4095774, y: 2.5212865}
   m_EdgeRadius: 0
---- !u!82 &82071622338585156
-AudioSource:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1809249357414516}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 0915bc2f3c670e44583c4f4598af7292, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
 --- !u!82 &82237234203202654
 AudioSource:
   m_ObjectHideFlags: 1
@@ -296,7 +214,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114066289702281038
+--- !u!114 &114711151273119116
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -304,30 +222,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1809249357414516}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d132c75ffe443e45bf1c98a7144d269, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d081c2d1004d9f4596eb9f4fa57b731, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clipWalking: {fileID: 8300000, guid: c23142ecafb875240a4ae4c4c557de24, type: 3}
-  clipAttack: {fileID: 8300000, guid: c7163563fbef27c48b36678ae4e4dcd7, type: 3}
-  clipHurt: {fileID: 8300000, guid: e948a840307279c4cba50285bd29a2bb, type: 3}
-  clipStun: {fileID: 8300000, guid: 25d30e161ed4a0c45943ac618c3e82e3, type: 3}
-  attackNow: 0
-  hurtNow: 0
---- !u!114 &114261466785189508
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1809249357414516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d132c75ffe443e45bf1c98a7144d269, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clipWalking: {fileID: 8300000, guid: c23142ecafb875240a4ae4c4c557de24, type: 3}
-  clipAttack: {fileID: 8300000, guid: c7163563fbef27c48b36678ae4e4dcd7, type: 3}
-  clipHurt: {fileID: 8300000, guid: e948a840307279c4cba50285bd29a2bb, type: 3}
-  clipStun: {fileID: 8300000, guid: 25d30e161ed4a0c45943ac618c3e82e3, type: 3}
+  clipWalking: {fileID: 8300000, guid: e6d0cd9c74854bf4e9a2000f29f7ab9d, type: 3}
+  clipAttack: {fileID: 8300000, guid: 490d92a8e122ef043940556179fbbac7, type: 3}
+  clipHurt: {fileID: 8300000, guid: 046f3e26459e97146b93c0f0b44fd378, type: 3}
+  clipStun: {fileID: 8300000, guid: de720152d2889294dbc75f961f96034f, type: 3}
   attackNow: 0
   hurtNow: 0
 --- !u!114 &114757969401741576
