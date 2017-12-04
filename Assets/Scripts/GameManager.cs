@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GameManager : SingletonBehaviour<GameManager> {
 
-    private byte _level = 0;
-    public byte Level
+    private int _level = -1;
+    public int Level
     {
         get { return _level; }
         set { _level = value; }
@@ -18,7 +18,7 @@ public class GameManager : SingletonBehaviour<GameManager> {
         set { _enemiesCount = value; }
     }
 
-    void OnStartLevel(byte levelNumber)
+    void OnStartLevel(int levelNumber)
     {
         _level = levelNumber;
 
@@ -30,7 +30,7 @@ public class GameManager : SingletonBehaviour<GameManager> {
 	void Update () {
 		if(_enemiesCount <= 0)
         {
-            OnStartLevel(_level++);
+            OnStartLevel(++_level);
         }
 	}
 }
