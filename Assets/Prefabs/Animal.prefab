@@ -226,6 +226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Ennemytype: 1
+  _items: 0b000000
   InventorySize: 2
   flee: 0
   _dropRadius: 1

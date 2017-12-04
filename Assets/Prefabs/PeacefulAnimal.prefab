@@ -243,6 +243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Ennemytype: 0
+  _items: 01000000
   InventorySize: 1
   flee: 0
   _dropRadius: 3
