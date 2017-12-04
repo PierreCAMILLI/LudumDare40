@@ -77,22 +77,31 @@ public class Ennemy : MonoBehaviour {
             if (flee && !sprite.isVisible)
                 died();
 		}
-
 	}
 
 	public void Move()
 	{
-		if (flee) {
+		Animator ennemyAnimation = GetComponent<Animator> ();
+		if (flee && Ennemytype == Ennemy.Ennemies.peacefulAnimal) {
 			transform.right = transform.position + Player.Instance.transform.position;
 			transform.position += transform.right * Time.deltaTime * MoveSpeed*20;
+			ennemyAnimation.SetBool ("walking", true);
 		}
-		if (targetMovement != null && !flee)
+		else if (targetMovement != null) {
+			ennemyAnimation.SetBool ("walking", true);
 			moveToTarget (targetMovement);
+			Vector3 direction = targetMovement.transform.position- transform.position;
+			if (direction.normalized.x >= 0)
+				GetComponent<SpriteRenderer> ().flipX = false;
+			else
+				GetComponent<SpriteRenderer> ().flipX = true;
+		}
         else // idle state (wondering randomely)
         {
             float deltaAngle = 40.0F * MoveSpeed * Time.deltaTime;
             if (Vector3.Distance(transform.position, idleTarget) <= 0.01F)
             {
+				ennemyAnimation.SetBool ("walking", false);
                 if (idleCooldown <= 0.0F)
                 {
                     idleCooldown = Random.Range(1.0F, 2.0F);
@@ -101,25 +110,12 @@ public class Ennemy : MonoBehaviour {
                     delta.Normalize();
                     idleTarget = transform.position + delta;
 
-                    //idleAngle = Vector3.SignedAngle(transform.right, idleTarget - transform.position, new Vector3(0, 0, 1));
                 }
                 else idleCooldown -= Time.deltaTime;
             }
-           /* else if (Mathf.Abs(idleAngle) >= deltaAngle)
-            {
-                if(idleAngle >= 0.0F)
-                {
-                    transform.Rotate(new Vector3(0, 0, 1), deltaAngle);
-                    idleAngle -= deltaAngle;
-                }
-                else
-                {
-                    transform.Rotate(new Vector3(0, 0, 1), -deltaAngle);
-                    idleAngle += deltaAngle;
-                }
-            }*/
             else
             {
+				ennemyAnimation.SetBool ("walking", true);
                 Vector3 direction = idleTarget - transform.position;
                 transform.position += direction.normalized * Time.deltaTime * MoveSpeed/2;
 				if (direction.normalized.x >= 0)
@@ -133,8 +129,9 @@ public class Ennemy : MonoBehaviour {
 
 	void moveToTarget (Transform targetPosition)
 	{
-		//transform.right = targetPosition.position - transform.position;
-		transform.position += transform.right * Time.deltaTime * MoveSpeed;
+		Vector3 direction = targetPosition.position - transform.position;
+		transform.position += direction.normalized * Time.deltaTime * MoveSpeed;
+	
 	}
 
 	void Behavior()
@@ -187,6 +184,33 @@ public class Ennemy : MonoBehaviour {
 		case Ennemies.goblin:
 			break;
 		case Ennemies.hero:
+			
+			Item itemSee = null;
+			Player playerSee = null;
+
+			if (visibleTargets.Count == 0) {
+				
+				targetMovement = null;
+			}
+			
+			foreach (var target in visibleTargets) {
+
+				if (target != null) {
+					itemSee = target.GetComponent<Item> ();
+					playerSee = target.GetComponent<Player> ();
+				}
+
+				if (itemSee != null && _items.Count != InventorySize) {
+					if (itemSee.type == Item.Type.FOOD) {
+						wantedItemInVision.Add (target);
+					}
+				} else if (playerSee != null) {
+					targetMovement = target;
+				}
+				if (wantedItemInVision.Count != 0 && playerSee == null) {
+					targetMovement = wantedItemInVision [0];
+				}
+			}
 			break;
 		default:
 			break;
@@ -201,9 +225,8 @@ public class Ennemy : MonoBehaviour {
 		Vector2 pointView  = new Vector2(viewRadius * Mathf.Cos(((anglePos))),viewRadius * Mathf.Sin(((anglePos))));
 		Vector2 pointView2 = new Vector2(viewRadius * Mathf.Cos(((angleNeg))),viewRadius * Mathf.Sin(((angleNeg))));
 
-		Gizmos.DrawLine (transform.position, transform.position + (Vector3)pointView);
-		Gizmos.DrawLine (transform.position, transform.position + (Vector3)pointView2);
-		Gizmos.DrawLine (transform.position + (Vector3)pointView, transform.position + (Vector3)pointView2);
+		Gizmos.DrawWireSphere (transform.position,viewRadius);
+
 
 	}
 
@@ -220,14 +243,11 @@ public class Ennemy : MonoBehaviour {
 		for (int i = 0; i < targetsInViewRadius.Length; i++) {
 			Transform target = targetsInViewRadius [i].transform;
 			Vector2 dirToTarget = (target.position - transform.position).normalized;
-			if (Vector2.Angle (transform.right, dirToTarget) < viewAngle / 2) {
-				float dstToTarget = Vector2.Distance (transform.position, target.position);
-				if (!Physics.Raycast (transform.position, dirToTarget, dstToTarget, obstacleMask)) {
-					visibleTargets.Add (target);
-				}
+			float dstToTarget = Vector2.Distance (transform.position, target.position);
+			if (!Physics.Raycast (transform.position, dirToTarget, dstToTarget, obstacleMask)) {
+				visibleTargets.Add (target);
 			}
 		}
-			
 	}
 
     public void Hurt()
@@ -236,6 +256,8 @@ public class Ennemy : MonoBehaviour {
         {
 			Debug.Log ("Je suis stun");
             _stunned = true;
+			Animator animation = GetComponent<Animator> ();
+			animation.SetBool ("stunned", true);
             StartCoroutine(StunRoutine());
         }
     }
@@ -257,7 +279,6 @@ public class Ennemy : MonoBehaviour {
 					_items.RemoveAt (0);
 					itemToPop.transform.position = transform.position - transform.right * _dropRadius;
 					} else if (_items.Count == 0) {
-						Debug.Log ("qemlrkj");
 						Hurt ();
 					}
 				}
@@ -290,6 +311,8 @@ public class Ennemy : MonoBehaviour {
     {
         yield return new WaitForSeconds(_stunTime);
         _stunned = false;
+		Animator animation = GetComponent<Animator> ();
+		animation.SetBool ("stunned", false);
     }
 
 	private void OnTriggerEnter2D(Collider2D collision)

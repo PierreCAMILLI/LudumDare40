@@ -257,7 +257,9 @@ public class Player : SingletonBehaviour<Player> {
 				Debug.Log (oclusion);
 				Debug.Log(distancePlayerObject);
 				if (!oclusion && distancePlayerObject > SizeTarget * 2) {
-					Inventory.Instance.instanciateItem (item).transform.position = itemPositionTmp;
+					GameObject newItem = Inventory.Instance.instanciateItem(item);
+					newItem.transform.position = itemPositionTmp;
+					newItem.GetComponent<Item> ().cooldownSensitive = true;
 					return true;
 				}
 			}

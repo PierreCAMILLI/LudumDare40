@@ -187,7 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_dontDestroyOnLoad: 0
-  _speed: 5
+  _speed: 4
   _sizeTarget: 1
   _resizeSmoothTime: 1
   _resizeVelocity: 0
@@ -197,6 +197,9 @@ MonoBehaviour:
     restrict: 0
   grownFactor: 0.1
   _throwForce: 3
+  invulnerabilityTime: 3
+  _invulnerable: 0
+  _circleSizePopObject: 5
 --- !u!212 &212195695763041586
 SpriteRenderer:
   m_ObjectHideFlags: 1
