@@ -31,8 +31,14 @@ public class GameManager : SingletonBehaviour<GameManager> {
         _level = levelNumber;
 
         int index = levelNumber % WaveManager.Instance.Waves.Count;
-        _enemiesCount = WaveManager.Instance.Waves[index].Enemies.Count;
-        SpawnManager.Instance.Add(WaveManager.Instance.Waves[index]);
+        _enemiesCount = (WavesLoop + 1) * WaveManager.Instance.Waves[index].Enemies.Count;
+
+        Debug.Log("level : " + levelNumber);
+        Debug.Log("wave count : " + WavesLoop);
+        Debug.Log("ennemui count : " + _enemiesCount);
+
+        for(int i = 0; i < WavesLoop + 1; i++)
+            SpawnManager.Instance.Add(WaveManager.Instance.Waves[index]);
     }
 	
 	// Update is called once per frame

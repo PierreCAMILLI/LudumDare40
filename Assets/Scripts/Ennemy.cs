@@ -254,7 +254,6 @@ public class Ennemy : MonoBehaviour {
     {
         if (!HasItems)
         {
-			Debug.Log ("Je suis stun");
             _stunned = true;
 			Animator animation = GetComponent<Animator> ();
 			animation.SetBool ("stunned", true);
