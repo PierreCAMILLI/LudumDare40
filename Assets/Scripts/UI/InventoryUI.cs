@@ -61,7 +61,7 @@ public class InventoryUI : SingletonBehaviour<InventoryUI> {
 
     void OnGUI()
     {
-        GUI.Label(new Rect(0, 0, 100, 50), "Score : " + Inventory.Instance.Score(), TextStyle);
+        GUI.Label(new Rect(0, 0, 100, 50), "Score : " + (Inventory.Instance.Score() + GameManager.Instance.totalScore), TextStyle);
         GUI.Label(new Rect(Screen.width * 1450 / 1600, Screen.height * 700 / 900, 100, 50), "+" + Mathf.Max(0, Inventory.Instance.ItemCount() - 6), TextStyle);
     }
 }
