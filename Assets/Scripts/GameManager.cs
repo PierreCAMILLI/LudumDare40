@@ -23,7 +23,7 @@ public class GameManager : SingletonBehaviour<GameManager> {
     /// </summary>
     public int WavesLoop
     {
-        get { return Mathf.CeilToInt((_level + 1) / WaveManager.Instance.Waves.Count); }
+        get { return Mathf.FloorToInt(_level / WaveManager.Instance.Waves.Count); }
     }
 
     void OnStartLevel(int levelNumber)
