@@ -74,7 +74,7 @@ public class Ennemy : MonoBehaviour {
 		Behavior();
 		Move ();
 		SpriteRenderer sprite = GetComponent<SpriteRenderer> ();
-            if (flee && !sprite.isVisible)
+			if (flee && !sprite.isVisible && Ennemytype == Ennemies.peacefulAnimal)
                 died();
 		}
 	}
@@ -201,7 +201,7 @@ public class Ennemy : MonoBehaviour {
 				}
 
 				if (itemSee != null && _items.Count != InventorySize) {
-					if (itemSee.type == Item.Type.FOOD) {
+					if (itemSee.type == Item.Type.WEAPON) {
 						wantedItemInVision.Add (target);
 					}
 				} else if (playerSee != null) {
@@ -300,6 +300,28 @@ public class Ennemy : MonoBehaviour {
 						Hurt ();
 					}
 				}
+
+			break;
+		case Ennemies.hero:
+			if (item.type == Item.Type.WEAPON && _items.Count != InventorySize) {
+				targetMovement = null;
+				Destroy(item.gameObject);
+				_items.Insert(0,item.element);
+				if(_items.Count == InventorySize){
+					flee = true;
+				}
+			}  else if (item.type == Item.Type.CRAP) {
+				Animator ennemyAnimation = GetComponent<Animator> ();
+
+				if (_items.Count != 0) {
+					ennemyAnimation.SetTrigger ("damaged");
+					GameObject itemToPop = Inventory.Instance.instanciateItem (_items [0]);
+					_items.RemoveAt (0);
+					itemToPop.transform.position = transform.position - transform.right * _dropRadius;
+				} else if (_items.Count == 0) {
+					Hurt ();
+				}
+			}
 
 			break;
 		default:

@@ -215,7 +215,7 @@ public class Player : SingletonBehaviour<Player> {
 					if (Inventory.Instance.getInventorySize() == 0) {
 						gameOver ();
 					} else {
-						
+						ennemy.gameObject.GetComponent<Animator> ().SetTrigger ("attack");
 						Animator animationPlayer = GetComponent<Animator> ();
 						animationPlayer.SetTrigger ("Hurt");
 						int magnitude = 6;
