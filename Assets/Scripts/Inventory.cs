@@ -135,7 +135,7 @@ public class Inventory : SingletonBehaviour<Inventory>
         }
         return item;
     }
-
+		
     //  container reader
     public int Size()
     {
@@ -165,10 +165,16 @@ public class Inventory : SingletonBehaviour<Inventory>
         return result;
     }
 
+
     public Item.Element[] getSlots()
     {
         return slots;
     }
+
+	public int getInventorySize()
+	{
+		return inventory.Count ();
+	}
 
     public Item.Element[] getInventory()
     {
