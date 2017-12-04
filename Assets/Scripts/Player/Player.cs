@@ -61,6 +61,8 @@ public class Player : SingletonBehaviour<Player> {
     private Vector2 _forceVelocity;
 #endregion
 
+	public int _circleSizePopObject = 5;
+
     // Use this for initialization
     void Start () {
         _forward = Vector2.down;
@@ -113,7 +115,7 @@ public class Player : SingletonBehaviour<Player> {
 
     public bool Throw(byte objectIndex = 0)
     {
-        RaycastHit2D oclusion = Physics2D.CircleCast(transform.position + SizeTarget * (Vector3)Forward, 0.5F, Forward, 0.01F, 1 << LayerMask.NameToLayer("Map"));
+        RaycastHit2D oclusion = Physics2D.CircleCast(transform.position + SizeTarget * (Vector3)Forward, 0.5F, Forward, 0, 1 << LayerMask.NameToLayer("Map"));
         if(!oclusion)
         {
             GameObject go = Inventory.Instance.instanciateItem(Inventory.Instance.popItem(objectIndex));
@@ -142,10 +144,25 @@ public class Player : SingletonBehaviour<Player> {
         return false;
     }
 
-	IEnumerator StunRoutine()
+	IEnumerator InvulnerableRoutine()
 	{
 		yield return new WaitForSeconds(invulnerabilityTime);
 		_invulnerable = false;
+		StopCoroutine ("BlikingRoutin");
+		SpriteRenderer spritePlayer = GetComponent<SpriteRenderer> ();
+		spritePlayer.color = new Color(1f,1f,1f,1f) ;
+	}
+
+	IEnumerator BlikingRoutin()
+	{
+		while (_invulnerable) {
+			SpriteRenderer spritePlayer = GetComponent<SpriteRenderer> ();
+			if (spritePlayer.color.a == 1)
+				spritePlayer.color = new Color (1f, 1f, 1f, 0f);
+			else
+				spritePlayer.color = new Color (1f, 1f, 1f, 1f);
+			yield return new WaitForSeconds (0.2f);
+		}
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
@@ -194,24 +211,62 @@ public class Player : SingletonBehaviour<Player> {
 				}
 			}
 			else {
-				if (!_invulnerable) {	
-					Animator animationPlayer = GetComponent<Animator> ();
-					animationPlayer.SetTrigger ("Hurt");
-					int magnitude = 6;
-					Vector3 force = transform.position - collision.transform.position;
-					force.Normalize ();
-					GetComponent<Rigidbody2D> ().AddForce (force * magnitude, ForceMode2D.Impulse);
-					//TODO Frame d'invulnérabilité et perte de 6 objets.
-					Inventory.Instance.popItem (0);
-					Inventory.Instance.popItem (1);
-					Inventory.Instance.popItem (2);
-					Inventory.Instance.popItem (0);
-					Inventory.Instance.popItem (1);
-					Inventory.Instance.popItem (2);
-					_invulnerable = true;
-					StartCoroutine(InvulnerableRoutine());
+				if (!_invulnerable) {
+					if (Inventory.Instance.getInventorySize() == 0) {
+						gameOver ();
+					} else {
+						
+						Animator animationPlayer = GetComponent<Animator> ();
+						animationPlayer.SetTrigger ("Hurt");
+						int magnitude = 6;
+						Vector3 force = transform.position - collision.transform.position;
+						force.Normalize ();
+						GetComponent<Rigidbody2D> ().AddForce (force * magnitude, ForceMode2D.Impulse);
+						//TODO Frame d'invulnérabilité et perte de 6 objets.
+
+						createObjectAroundPlayer (Inventory.Instance.popItem (0));
+						createObjectAroundPlayer (Inventory.Instance.popItem (1));
+						createObjectAroundPlayer (Inventory.Instance.popItem (2));
+						createObjectAroundPlayer (Inventory.Instance.popItem (0));
+						createObjectAroundPlayer (Inventory.Instance.popItem (1));
+						createObjectAroundPlayer (Inventory.Instance.popItem (2));
+						for (int i = 0; i < 6; i++) {
+							SizeTarget = Mathf.Clamp (SizeTarget - grownFactor, _sizeBounds.Min, _sizeBounds.Max);
+						}
+						//change le premier paramètre par la position ou l'on veut poser l'objet
+						//
+
+						_invulnerable = true;
+						StartCoroutine (InvulnerableRoutine ());
+						StartCoroutine ("BlikingRoutin", 0.1f);
+					}
 				}
 			}
 		}
     }
+
+	private bool createObjectAroundPlayer(Item.Element item)
+	{
+		
+		if (item != Item.Element.APPLE && item != Item.Element.FISH && item != Item.Element.MEAT && item != Item.Element.NONE) {
+			for (int i = 0; i < 100; i++) {
+				Vector2 itemPositionTmp;
+				itemPositionTmp = (Vector2)transform.position + Random.insideUnitCircle * _circleSizePopObject * SizeTarget;
+				RaycastHit2D oclusion = Physics2D.CircleCast(itemPositionTmp, 0.5F, Forward, 0, 1 << LayerMask.NameToLayer("Map"));
+				float distancePlayerObject = Vector2.Distance((Vector2)transform.position, itemPositionTmp);
+				Debug.Log (oclusion);
+				Debug.Log(distancePlayerObject);
+				if (!oclusion && distancePlayerObject > SizeTarget * 2) {
+					Inventory.Instance.instanciateItem (item).transform.position = itemPositionTmp;
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	private void gameOver()
+	{
+		this.gameObject.SetActive(false);
+	}
 }

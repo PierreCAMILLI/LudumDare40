@@ -124,6 +124,11 @@ public class Inventory : SingletonBehaviour<Inventory>
         return slots;
     }
 
+	public int getInventorySize()
+	{
+		return inventory.Count ();
+	}
+
     public Item.Element[] getInventory()
     {
         Item.Element[] result = new Item.Element[3];

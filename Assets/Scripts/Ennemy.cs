@@ -276,7 +276,6 @@ public class Ennemy : MonoBehaviour {
 						_items.RemoveAt (0);
 						itemToPop.transform.position = transform.position - transform.right * _dropRadius;
 					} else if (_items.Count == 0) {
-					Debug.Log ("lmsfkdjlkmdfglodfgjmlkfdgnmlfd");
 						Hurt ();
 					}
 				}
