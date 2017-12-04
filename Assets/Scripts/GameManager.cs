@@ -6,7 +6,7 @@ public class GameManager : SingletonBehaviour<GameManager> {
 
     public int totalScore = 0;
 
-    private int _level = -1;
+    private int _level = 3;
     public int Level
     {
         get { return _level; }

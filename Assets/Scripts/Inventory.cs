@@ -138,8 +138,7 @@ public class Inventory : SingletonBehaviour<Inventory>
 
     public void resetInventory()
     {
-        int remaning = 8;
-        inventory.RemoveRange(remaning, inventory.Count - remaning);
+        inventory.RemoveRange(3, inventory.Count -3);
     }
 		
     //  container reader
