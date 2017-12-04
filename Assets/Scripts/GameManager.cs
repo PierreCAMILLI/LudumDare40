@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : SingletonBehaviour<GameManager> {
 
+    public int totalScore = 0;
+
     private int _level = -1;
     public int Level
     {
@@ -32,11 +34,7 @@ public class GameManager : SingletonBehaviour<GameManager> {
 
         int index = levelNumber % WaveManager.Instance.Waves.Count;
         _enemiesCount = (WavesLoop + 1) * WaveManager.Instance.Waves[index].Enemies.Count;
-
-        Debug.Log("level : " + levelNumber);
-        Debug.Log("wave count : " + WavesLoop);
-        Debug.Log("ennemui count : " + _enemiesCount);
-
+        
         for(int i = 0; i < WavesLoop + 1; i++)
             SpawnManager.Instance.Add(WaveManager.Instance.Waves[index]);
     }
@@ -45,7 +43,15 @@ public class GameManager : SingletonBehaviour<GameManager> {
 	void Update () {
 		if(_enemiesCount <= 0)
         {
+            int previousWave = WavesLoop;
             OnStartLevel(++_level);
+            if(WavesLoop != previousWave)
+            {
+                totalScore += Inventory.Instance.Score();
+                Inventory.Instance.resetInventory();
+
+                Debug.Log("score : " + totalScore);
+            }
         }
 	}
 }
