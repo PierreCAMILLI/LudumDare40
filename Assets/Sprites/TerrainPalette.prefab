@@ -266,7 +266,7 @@ Tilemap:
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
-      m_ColliderType: 1
+      m_ColliderType: 0
   - first: {x: 2, y: -6, z: 0}
     second:
       m_TileIndex: 59
@@ -293,7 +293,7 @@ Tilemap:
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
-      m_ColliderType: 1
+      m_ColliderType: 0
   - first: {x: 5, y: -6, z: 0}
     second:
       m_TileIndex: 0
@@ -347,7 +347,7 @@ Tilemap:
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
-      m_ColliderType: 1
+      m_ColliderType: 0
   - first: {x: 2, y: -5, z: 0}
     second:
       m_TileIndex: 50
@@ -374,7 +374,7 @@ Tilemap:
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
-      m_ColliderType: 1
+      m_ColliderType: 0
   - first: {x: 5, y: -5, z: 0}
     second:
       m_TileIndex: 53
@@ -671,7 +671,7 @@ Tilemap:
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
-      m_ColliderType: 1
+      m_ColliderType: 0
   - first: {x: 2, y: -1, z: 0}
     second:
       m_TileIndex: 14
@@ -680,7 +680,7 @@ Tilemap:
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
-      m_ColliderType: 1
+      m_ColliderType: 0
   - first: {x: 3, y: -1, z: 0}
     second:
       m_TileIndex: 15
@@ -689,7 +689,7 @@ Tilemap:
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
-      m_ColliderType: 1
+      m_ColliderType: 0
   - first: {x: 4, y: -1, z: 0}
     second:
       m_TileIndex: 16
@@ -698,7 +698,7 @@ Tilemap:
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
-      m_ColliderType: 1
+      m_ColliderType: 0
   - first: {x: 5, y: -1, z: 0}
     second:
       m_TileIndex: 17
@@ -743,7 +743,7 @@ Tilemap:
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
-      m_ColliderType: 1
+      m_ColliderType: 0
   - first: {x: 1, y: 0, z: 0}
     second:
       m_TileIndex: 4
@@ -752,7 +752,7 @@ Tilemap:
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
-      m_ColliderType: 1
+      m_ColliderType: 0
   - first: {x: 2, y: 0, z: 0}
     second:
       m_TileIndex: 5
@@ -761,7 +761,7 @@ Tilemap:
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
-      m_ColliderType: 1
+      m_ColliderType: 0
   - first: {x: 3, y: 0, z: 0}
     second:
       m_TileIndex: 6
@@ -770,7 +770,7 @@ Tilemap:
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
-      m_ColliderType: 1
+      m_ColliderType: 0
   - first: {x: 4, y: 0, z: 0}
     second:
       m_TileIndex: 7
@@ -779,7 +779,7 @@ Tilemap:
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
-      m_ColliderType: 1
+      m_ColliderType: 0
   - first: {x: 5, y: 0, z: 0}
     second:
       m_TileIndex: 8
@@ -1097,17 +1097,17 @@ Tilemap:
   - m_RefCount: 66
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   - m_RefCount: 1
-    m_Data: {r: 0.8811594, g: 0.49509466, b: 0.5274518, a: 1}
+    m_Data: {r: 0.9013602, g: 0.5801115, b: 0.6567381, a: 1}
   - m_RefCount: 1
-    m_Data: {r: 0.960074, g: 0.43565604, b: 0.4736797, a: 1}
+    m_Data: {r: 0.83440524, g: 0.5098457, b: 0.51977175, a: 1}
   - m_RefCount: 1
-    m_Data: {r: 0.85328835, g: 0.46839297, b: 0.5604501, a: 1}
+    m_Data: {r: 0.856794, g: 0.4359809, b: 0.4724393, a: 1}
   - m_RefCount: 1
-    m_Data: {r: 0.9753625, g: 0.50674903, b: 0.635818, a: 1}
+    m_Data: {r: 0.84463483, g: 0.567266, b: 0.60076714, a: 1}
   - m_RefCount: 1
-    m_Data: {r: 0.7838227, g: 0.35187057, b: 0.43305317, a: 1}
+    m_Data: {r: 0.8967412, g: 0.38607872, b: 0.47347602, a: 1}
   - m_RefCount: 1
-    m_Data: {r: 0.72394556, g: 0.3956484, b: 0.41147548, a: 1}
+    m_Data: {r: 0.86974144, g: 0.46576908, b: 0.5059696, a: 1}
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -3, y: -7, z: 0}
