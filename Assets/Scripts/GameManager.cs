@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GameManager : SingletonBehaviour<GameManager> {
 
-    private byte _level = 0;
-    public byte Level
+    private int _level = -1;
+    public int Level
     {
         get { return _level; }
         set { _level = value; }
@@ -18,19 +18,28 @@ public class GameManager : SingletonBehaviour<GameManager> {
         set { _enemiesCount = value; }
     }
 
-    void OnStartLevel(byte levelNumber)
+    /// <summary>
+    /// Indicates the amount of loop there have been for every waves
+    /// </summary>
+    public int WavesLoop
+    {
+        get { return Mathf.FloorToInt(_level / WaveManager.Instance.Waves.Count); }
+    }
+
+    void OnStartLevel(int levelNumber)
     {
         _level = levelNumber;
 
-        _enemiesCount = WaveManager.Instance.Waves[levelNumber].Enemies.Count;
-        SpawnManager.Instance.Add(WaveManager.Instance.Waves[levelNumber]);
+        int index = levelNumber % WaveManager.Instance.Waves.Count;
+        _enemiesCount = WaveManager.Instance.Waves[index].Enemies.Count;
+        SpawnManager.Instance.Add(WaveManager.Instance.Waves[index]);
     }
 	
 	// Update is called once per frame
 	void Update () {
 		if(_enemiesCount <= 0)
         {
-            OnStartLevel(_level++);
+            OnStartLevel(++_level);
         }
 	}
 }

@@ -21,10 +21,30 @@ public class Inventory : SingletonBehaviour<Inventory>
     public GameObject bonePrefab;
     public GameObject rockPrefab;
 
+    private Dictionary<Item.Element, int> itemScore = new Dictionary<Item.Element, int>()
+    {
+        { Item.Element.NONE,  0},
+        { Item.Element.MEAT,  10},
+        { Item.Element.APPLE, 5},
+        { Item.Element.FISH,  2},
+
+        { Item.Element.SHIELD, 2},
+        { Item.Element.SWORD,  3},
+        { Item.Element.BOOT,   1},
+
+        { Item.Element.DIAMOND, 3},
+        { Item.Element.COIN,    1},
+
+        { Item.Element.CAN,  0},
+        { Item.Element.LINT, 0},
+        { Item.Element.BONE, 0},
+        { Item.Element.ROCK, 0}
+    };
+
     private Sprite[] sprites = new Sprite[12]; 
     private Item.Element[] slots = new Item.Element[3];
     private List<Item.Element> inventory;
-
+    
 
     // Use this for initialization
     void Start()
@@ -82,8 +102,7 @@ public class Inventory : SingletonBehaviour<Inventory>
         inventory.Insert(0, slots[moncul]);
         slots[moncul] = item.element;
     }
-
-	//  container modifier
+    
 	public void PushFrontElement(Item.Element item)
 	{
 		for (int i = 0; i < 3; i++)
@@ -116,7 +135,35 @@ public class Inventory : SingletonBehaviour<Inventory>
         }
         return item;
     }
+		
+    //  container reader
+    public int Size()
+    {
+        int result = 0;
+        for (int i = 0; i < 3; i++)
+            if (slots[i] == Item.Element.NONE)
+                result++;
+        return result + inventory.Count;
+    }
 
+    public int ItemCount()
+    {
+        int result = 0;
+        for (int i = 0; i < 3; i++)
+            if (slots[i] != Item.Element.NONE)
+                result++;
+        return result + inventory.Count;
+    }
+
+    public int Score()
+    {
+        int result = 0;
+        for (int i = 0; i < 3; i++)
+            result += itemScore[slots[i]];
+        for (int i = 0; i < inventory.Count; i++)
+            result += itemScore[inventory[i]];
+        return result;
+    }
 
 
     public Item.Element[] getSlots()
@@ -145,6 +192,7 @@ public class Inventory : SingletonBehaviour<Inventory>
         return sprites[(int)type-1];
     }
 
+    //  utils
     public GameObject instanciateItem(Item.Element type)
     {
         switch (type)
