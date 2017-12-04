@@ -113,7 +113,7 @@ public class Player : SingletonBehaviour<Player> {
 
     public bool Throw(byte objectIndex = 0)
     {
-        RaycastHit2D oclusion = Physics2D.CircleCast(transform.position + SizeTarget * (Vector3)Forward, 0.5F, Forward, 0.0F, 1 << LayerMask.NameToLayer("Map"));
+        RaycastHit2D oclusion = Physics2D.CircleCast(transform.position + SizeTarget * (Vector3)Forward, 0.5F, Forward, 0.01F, 1 << LayerMask.NameToLayer("Map"));
         if(!oclusion)
         {
             GameObject go = Inventory.Instance.instanciateItem(Inventory.Instance.popItem(objectIndex));
