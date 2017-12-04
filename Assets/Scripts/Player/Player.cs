@@ -268,5 +268,7 @@ public class Player : SingletonBehaviour<Player> {
 	private void gameOver()
 	{
 		this.gameObject.SetActive(false);
+
+        GameOverUI.Instance.ToogleGameOver(true);
 	}
 }
