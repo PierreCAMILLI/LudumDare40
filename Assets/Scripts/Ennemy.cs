@@ -47,7 +47,6 @@ public class Ennemy : MonoBehaviour {
 
 	public int MoveSpeed = 4;
 	private Transform targetMovement;
-    private Vector3 moveDirection;
 
     // idle mode relative
     Vector3 idleTarget;
@@ -65,7 +64,7 @@ public class Ennemy : MonoBehaviour {
 	void Update () 
 	{
 		if (_stunned) {
-			transform.position.Set(3*Mathf.Sin (Time.time * 1.0f), transform.position.y, transform.position.z);
+			transform.position.Set(3*Mathf.Sin (Time.time * 1.0f),transform.position.y,transform.position.z);
 		}
 		else
 		{
@@ -81,8 +80,8 @@ public class Ennemy : MonoBehaviour {
 	{
 		Animator ennemyAnimation = GetComponent<Animator> ();
 		if (flee && Ennemytype == Ennemy.Ennemies.peacefulAnimal) {
-            moveDirection = transform.position + Player.Instance.transform.position;
-			transform.position += moveDirection * Time.deltaTime * MoveSpeed*20;
+			transform.right = transform.position + Player.Instance.transform.position;
+			transform.position += transform.right * Time.deltaTime * MoveSpeed*20;
 			ennemyAnimation.SetBool ("walking", true);
 		}
 		else if (targetMovement != null) {
@@ -94,8 +93,9 @@ public class Ennemy : MonoBehaviour {
 			else
 				GetComponent<SpriteRenderer> ().flipX = true;
 		}
-        else
+        else // idle state (wondering randomely)
         {
+            float deltaAngle = 40.0F * MoveSpeed * Time.deltaTime;
             if (Vector3.Distance(transform.position, idleTarget) <= 0.01F)
             {
 				ennemyAnimation.SetBool ("walking", false);
@@ -273,7 +273,7 @@ public class Ennemy : MonoBehaviour {
 				if (_items.Count != 0) {
 					GameObject itemToPop = Inventory.Instance.instanciateItem (_items [0]);
 					_items.RemoveAt (0);
-					itemToPop.transform.position = transform.position - moveDirection * _dropRadius;
+					itemToPop.transform.position = transform.position - transform.right * _dropRadius;
 					} else if (_items.Count == 0) {
 						Hurt ();
 					}
@@ -291,7 +291,7 @@ public class Ennemy : MonoBehaviour {
 					if (_items.Count != 0) {
 						GameObject itemToPop = Inventory.Instance.instanciateItem (_items [0]);
 						_items.RemoveAt (0);
-						itemToPop.transform.position = transform.position - moveDirection * _dropRadius;
+						itemToPop.transform.position = transform.position - transform.right * _dropRadius;
 					} else if (_items.Count == 0) {
 						Hurt ();
 					}
@@ -313,7 +313,7 @@ public class Ennemy : MonoBehaviour {
 					ennemyAnimation.SetTrigger ("damaged");
 					GameObject itemToPop = Inventory.Instance.instanciateItem (_items [0]);
 					_items.RemoveAt (0);
-					itemToPop.transform.position = transform.position - moveDirection * _dropRadius;
+					itemToPop.transform.position = transform.position - transform.right * _dropRadius;
 				} else if (_items.Count == 0) {
 					Hurt ();
 				}
