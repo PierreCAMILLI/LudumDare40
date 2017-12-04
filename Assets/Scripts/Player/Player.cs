@@ -73,7 +73,7 @@ public class Player : SingletonBehaviour<Player> {
 	void LateUpdate () {
 		Animator animationPlayer = GetComponent<Animator>();
 		if (Velocity != Vector2.zero) {
-			if (Velocity.x >= 0)
+			if (Velocity.x <= 0)
 				GetComponent<SpriteRenderer> ().flipX = true;
 			else 
 				GetComponent<SpriteRenderer> ().flipX = false;
