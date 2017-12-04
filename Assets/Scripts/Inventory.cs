@@ -135,6 +135,12 @@ public class Inventory : SingletonBehaviour<Inventory>
         }
         return item;
     }
+
+    public void resetInventory()
+    {
+        int remaning = 13;
+        inventory.RemoveRange(remaning, inventory.Count - remaning);
+    }
 		
     //  container reader
     public int Size()

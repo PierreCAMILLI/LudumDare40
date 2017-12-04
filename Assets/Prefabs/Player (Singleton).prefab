@@ -193,13 +193,13 @@ MonoBehaviour:
   _resizeVelocity: 0
   _sizeBounds:
     m_min: 1
-    m_max: 4
+    m_max: 6
     restrict: 0
   grownFactor: 0.1
   _throwForce: 3
   invulnerabilityTime: 3
   _invulnerable: 0
-  _circleSizePopObject: 5
+  _circleSizePopObject: 3
 --- !u!212 &212195695763041586
 SpriteRenderer:
   m_ObjectHideFlags: 1

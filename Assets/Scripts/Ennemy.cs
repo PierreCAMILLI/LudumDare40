@@ -46,12 +46,10 @@ public class Ennemy : MonoBehaviour {
 	bool seeItemWanted = false;
 
 	public int MoveSpeed = 4;
-	public int RotationSpeed = 2;
 	private Transform targetMovement;
 
     // idle mode relative
     Vector3 idleTarget;
-    float idleAngle;
     float idleCooldown = 0.0F;
 
 
@@ -60,7 +58,6 @@ public class Ennemy : MonoBehaviour {
 	{
 		StartCoroutine ("FindTargetsWithDelay", .2f);
         idleTarget = transform.position;
-        idleAngle = 0.0F;
     }
 	
 	// Update is called once per frame
@@ -254,7 +251,6 @@ public class Ennemy : MonoBehaviour {
     {
         if (!HasItems)
         {
-			Debug.Log ("Je suis stun");
             _stunned = true;
 			Animator animation = GetComponent<Animator> ();
 			animation.SetBool ("stunned", true);

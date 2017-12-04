@@ -254,8 +254,6 @@ public class Player : SingletonBehaviour<Player> {
 				itemPositionTmp = (Vector2)transform.position + Random.insideUnitCircle * _circleSizePopObject * SizeTarget;
 				RaycastHit2D oclusion = Physics2D.CircleCast(itemPositionTmp, 0.5F, Forward, 0, 1 << LayerMask.NameToLayer("Map"));
 				float distancePlayerObject = Vector2.Distance((Vector2)transform.position, itemPositionTmp);
-				Debug.Log (oclusion);
-				Debug.Log(distancePlayerObject);
 				if (!oclusion && distancePlayerObject > SizeTarget * 2) {
 					GameObject newItem = Inventory.Instance.instanciateItem(item);
 					newItem.transform.position = itemPositionTmp;
