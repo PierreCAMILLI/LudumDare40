@@ -81,7 +81,8 @@ MonoBehaviour:
   Ennemytype: 1
   InventorySize: 2
   flee: 0
-  _stunTime: 0
+  _dropRadius: 1
+  _stunTime: 5
   viewRadius: 5.9
   viewAngle: 60
   visibleTargets: []
