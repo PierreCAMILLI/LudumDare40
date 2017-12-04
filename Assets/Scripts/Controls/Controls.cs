@@ -35,6 +35,16 @@ public class PlayerControls
     [SerializeField]
     KeyCode _melee;
 
+    [SerializeField]
+    KeyCode _restart;
+    [SerializeField]
+    KeyCode _restartAlternative;
+
+    [SerializeField]
+    KeyCode _quit;
+    [SerializeField]
+    KeyCode _quitAlternative;
+
     #region Getter
     public float Horizontal
     {
@@ -64,6 +74,16 @@ public class PlayerControls
     public bool Melee
     {
         get { return Input.GetKeyDown(_melee); }
+    }
+
+    public bool Restart
+    {
+        get { return Input.GetKeyDown(_restart) || Input.GetKeyDown(_restartAlternative); }
+    }
+
+    public bool Quit
+    {
+        get { return Input.GetKeyDown(_quit) || Input.GetKeyDown(_quitAlternative); }
     }
     #endregion
 

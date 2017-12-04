@@ -146,7 +146,7 @@ MonoBehaviour:
   Ennemytype: 0
   InventorySize: 1
   flee: 0
-  _dropRadius: 1
+  _dropRadius: 3
   _stunTime: 5
   viewRadius: 5.9
   viewAngle: 60
