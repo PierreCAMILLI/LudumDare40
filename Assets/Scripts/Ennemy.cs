@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(SoundHandler))]
 public class Ennemy : MonoBehaviour {
 
 	public enum Ennemies {peacefulAnimal,animal,hero,goblin};
@@ -52,12 +54,15 @@ public class Ennemy : MonoBehaviour {
     Vector3 idleTarget;
     float idleCooldown = 0.0F;
 
-
+    Animator animator;
+    SoundHandler soundHandler;
     // Use this for initialization
     void Start () 
 	{
 		StartCoroutine ("FindTargetsWithDelay", .2f);
         idleTarget = transform.position;
+        animator = GetComponent<Animator>();
+        soundHandler = GetComponent<SoundHandler>();
     }
 	
 	// Update is called once per frame
@@ -311,6 +316,7 @@ public class Ennemy : MonoBehaviour {
 
 				if (_items.Count != 0) {
 					ennemyAnimation.SetTrigger ("damaged");
+                        soundHandler.TriggerHurt();
 					GameObject itemToPop = Inventory.Instance.instanciateItem (_items [0]);
 					_items.RemoveAt (0);
 					itemToPop.transform.position = transform.position - transform.right * _dropRadius;
